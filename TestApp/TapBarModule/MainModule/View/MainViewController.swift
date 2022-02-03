@@ -19,7 +19,7 @@ class MainViewController: UIViewController {
         setupSearchController()
         presenter.getPhotoInformation()
         setupActivityIndicator()
-        indicatorActivity.startAnimating()
+        navBarSettings()
     }
     
     var indicatorActivity = UIActivityIndicatorView()
@@ -28,24 +28,38 @@ class MainViewController: UIViewController {
         indicatorActivity.color = .black
         collectionView1.addSubview(indicatorActivity)
         indicatorActivity.frame = view.frame
+        indicatorActivity.startAnimating()
     }
     
     let collectionView1: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-       // layout.minimumLineSpacing = 1
         let collectionView1 = UICollectionView(frame: .zero, collectionViewLayout: layout)
-     
         collectionView1.register(MainViewControllerCell.self, forCellWithReuseIdentifier: "cell")
         collectionView1.translatesAutoresizingMaskIntoConstraints = false
-//        collectionView1.refreshControl = UIRefreshControl()
-//        collectionView1.refreshControl?.addTarget(self, action: #selector(refreshActions), for: .valueChanged)
         return collectionView1
     }()
-
-//    @objc func refreshActions(){
-//        print("fff")
-//        collectionView1.refreshControl?.endRefreshing()
-//    }
+    
+    
+    func createCustomButton(selector: Selector) -> UIBarButtonItem {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "arrow.clockwise"), for: .normal)
+        button.tintColor = .black
+        button.addTarget(self, action: selector, for: .touchUpInside)
+        let menuBarItem = UIBarButtonItem(customView: button)
+        return menuBarItem
+    }
+    
+    func navBarSettings(){
+        let usetInfiButton = createCustomButton(selector: #selector(refreshButtonTapped))
+        navigationItem.rightBarButtonItem = usetInfiButton
+    }
+    
+     
+    @objc func refreshButtonTapped(){
+        presenter.getPhotoInformation()
+        indicatorActivity.startAnimating()
+    }
+    
     
     
     private let searchController = UISearchController(searchResultsController: nil)
@@ -73,13 +87,12 @@ class MainViewController: UIViewController {
 }
 
 extension MainViewController: MainViewProtocol {
+   
     func sucsess() {
         collectionView1.reloadData()
         indicatorActivity.stopAnimating()
         indicatorActivity.hidesWhenStopped = true
     }
-    
- 
 }
 
 
@@ -88,10 +101,6 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! MainViewControllerCell
         cell.imageView.image = presenter.makeImage(img: presenter.photoModels[indexPath.row].picture)
-        //cell.contentView.backgroundColor = .systemBlue
-        //let song = songs[indexPath.row].trackName
-     //   let images = presenter.getPhoto()
-       // cell.imageView.image = UIImage(named: "1")
         return cell
     }
     
@@ -105,7 +114,6 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         presenter.goToDetailsModule(model: model)
     }
 
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         CGSize(
             width: (view.frame.size.width/2) - 12,
@@ -132,13 +140,8 @@ extension MainViewController: UISearchBarDelegate {
             timer?.invalidate()
             timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { [weak self] _ in
                 self?.presenter.fetchSearchPhoto(name: text!)
+                self?.indicatorActivity.startAnimating()
             })
-        } else {
-            timer?.invalidate()
-            timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { [weak self] _ in
-                self?.presenter.getPhotoInformation()
-            })
-            
         }
     }
 }

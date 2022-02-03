@@ -21,7 +21,7 @@ class ModuleBuilder: BuilderProtocol {
     private func createMainViewControllerModule() -> UIViewController {
         let view = MainViewController()
         let networkService = NetworkService()
-        let navigationController = createNavigationViewController(controller: view, title: "Random Images", image: UIImage(systemName: "house.fill"))
+        let navigationController = createNavigationViewController(controller: view, title: "Images", image: UIImage(systemName: "house.fill"))
         let router = Router(navigationController: navigationController, assemblyBuilder: self)
         let presenter = MainPresenter(view: view, router: router, networkService: networkService)
         view.presenter = presenter

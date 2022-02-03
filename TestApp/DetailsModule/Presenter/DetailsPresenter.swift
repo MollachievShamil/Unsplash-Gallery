@@ -82,10 +82,10 @@ class DetailsPresenter: DetailsPresenterProtocol {
     func downloadPhoto(){
         guard let model = model else {return}
 
-        networkService?.fetcImage(from: model, response: { data in
+        networkService?.fetcImage(from: model, response: { [weak self] data in
             if let data = data {
                 let image = UIImage(data: data)
-                self.view?.setUpPhoto(image: image!)
+                self?.view?.setUpPhoto(image: image!)
             }
         })
     }

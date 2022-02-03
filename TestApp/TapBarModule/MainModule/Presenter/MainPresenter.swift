@@ -39,20 +39,20 @@ class MainPresenter: MainPresenterProtocol {
     }
     
     func fetchSearchPhoto(name: String){
-        networkService?.fetchSearchingModels(searchText: name, completion: { model in
+        networkService?.fetchSearchingModels(searchText: name, completion: { [weak self] model in
          //   model?.results[0].downloads
             guard let model = model else { return }
             let photoModel = model.results
-            self.photoModels = photoModel
-            self.getImages()
+            self?.photoModels = photoModel
+            self?.getImages()
         })
     }
     
     func getPhotoInformation() {
-        networkService?.fetchModels { model in
+        networkService?.fetchModels { [weak self] model in
             guard let model = model else { return }
-            self.photoModels = model
-            self.getImages()
+            self?.photoModels = model
+            self?.getImages()
         }
     }
     
@@ -70,9 +70,9 @@ class MainPresenter: MainPresenterProtocol {
         let dispatchGroup = DispatchGroup()
         for (index, picture) in photoModels.enumerated() {
             dispatchGroup.enter()
-            networkService?.fetcImage(from: picture , response: { data in
+            networkService?.fetcImage(from: picture , response: { [weak self] data in
                 if let data = data {
-                    self.photoModels[index].picture = data
+                    self?.photoModels[index].picture = data
                     dispatchGroup.leave()
                 }
             })
