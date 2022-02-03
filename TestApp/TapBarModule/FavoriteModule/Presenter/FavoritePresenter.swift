@@ -13,7 +13,7 @@ protocol FavoriteViewProtocol: AnyObject {
 
 protocol FavoritePresenterProtocol: AnyObject{
     init(view: FavoriteViewProtocol, router: RouterProtocol)
-   
+    func goToDetailsModule()
 }
 
 
@@ -26,5 +26,9 @@ class FavoritePresenter: FavoritePresenterProtocol {
     required init(view: FavoriteViewProtocol, router: RouterProtocol) {
         self.view = view
         self.router = router
+    }
+    
+    func goToDetailsModule() {
+        router?.showDetailsViewController()
     }
 }

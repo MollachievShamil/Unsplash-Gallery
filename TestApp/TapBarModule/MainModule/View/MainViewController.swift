@@ -8,7 +8,18 @@
 import UIKit
 
 class MainViewController: UIViewController {
+    
     var presenter: MainPresenterProtocol!
+    var timer: Timer?
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setDelegate()
+        setConstraints()
+        setupSearchController()
+        presenter.getPhoto()
+
+    }
     
     private let collectionView1: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -19,16 +30,6 @@ class MainViewController: UIViewController {
         collectionView1.translatesAutoresizingMaskIntoConstraints = false
         return collectionView1
     }()
-
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setDelegate()
-        setConstraints()
-        setupSearchController()
-        presenter.getPhoto()
-
-    }
     
     private let searchController = UISearchController(searchResultsController: nil)
     private func setupSearchController() {
@@ -73,6 +74,9 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         return 20
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        presenter.goToDetailsModule()
+    }
 
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -91,3 +95,17 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
 }
 
+extension MainViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print(searchText)
+        
+        let text = searchText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+        
+        if text != "" {
+            timer?.invalidate()
+            timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { [weak self] _ in
+               // self?.fetchAlbum(name: text!)
+            })
+        }
+    }
+}

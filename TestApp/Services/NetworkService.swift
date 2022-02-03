@@ -8,12 +8,12 @@
 import Foundation
 
 protocol NetworkServiceProtocol {
-    func fetchRandomImage(completion: @escaping(PhotoModel?) -> Void)
+    func fetchRandomImage(completion: @escaping([PhotoModel?]?) -> Void)
 }
 
 class NetworkService: NetworkServiceProtocol {
     
-    func fetchRandomImage(completion: @escaping(PhotoModel?) -> Void){
+    func fetchRandomImage(completion: @escaping([PhotoModel?]?) -> Void){
         let urlString = "https://api.unsplash.com/photos/random/?count=20&client_id=9_x587DuHw9DllgT4tNfNTY3V8LrB6Ny92D5LiKAjmI#"
         fetchData(urlString: urlString, responce: completion)
     }

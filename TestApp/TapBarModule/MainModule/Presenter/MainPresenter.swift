@@ -14,6 +14,7 @@ protocol MainViewProtocol: AnyObject {
 protocol MainPresenterProtocol: AnyObject{
     init(view: MainViewProtocol, router: RouterProtocol, networkService: NetworkServiceProtocol)
     func getPhoto()
+    func goToDetailsModule()
 }
 
 
@@ -32,7 +33,11 @@ class MainPresenter: MainPresenterProtocol {
     
     func getPhoto() {
         networkService?.fetchRandomImage { aa in
-            
+            print(aa?[0]?.user)
         }
+    }
+  
+    func goToDetailsModule() {
+        router?.showDetailsViewController()
     }
 }

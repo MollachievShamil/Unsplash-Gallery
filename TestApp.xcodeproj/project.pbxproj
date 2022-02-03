@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		B30569C227ABB78200030E81 /* PhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30569C127ABB78200030E81 /* PhotoModel.swift */; };
+		B30569C427ABDDA600030E81 /* FavoriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30569C327ABDDA600030E81 /* FavoriteTableViewCell.swift */; };
+		B30569C627ABE48C00030E81 /* UIStackViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30569C527ABE48C00030E81 /* UIStackViewExtension.swift */; };
 		B3550D1627AAE018001389CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3550D1527AAE018001389CA /* AppDelegate.swift */; };
 		B3550D1827AAE018001389CA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3550D1727AAE018001389CA /* SceneDelegate.swift */; };
 		B3550D1F27AAE01A001389CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3550D1E27AAE01A001389CA /* Assets.xcassets */; };
@@ -26,6 +28,8 @@
 
 /* Begin PBXFileReference section */
 		B30569C127ABB78200030E81 /* PhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModel.swift; sourceTree = "<group>"; };
+		B30569C327ABDDA600030E81 /* FavoriteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewCell.swift; sourceTree = "<group>"; };
+		B30569C527ABE48C00030E81 /* UIStackViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackViewExtension.swift; sourceTree = "<group>"; };
 		B3550D1227AAE018001389CA /* TestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3550D1527AAE018001389CA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3550D1727AAE018001389CA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -58,7 +62,7 @@
 		B3550D0927AAE017001389CA = {
 			isa = PBXGroup;
 			children = (
-				B30569C127ABB78200030E81 /* PhotoModel.swift */,
+				B30569C527ABE48C00030E81 /* UIStackViewExtension.swift */,
 				B3550D1427AAE018001389CA /* TestApp */,
 				B3550D1327AAE018001389CA /* Products */,
 			);
@@ -118,6 +122,7 @@
 			children = (
 				B3550D2927AAE118001389CA /* Assembly.swift */,
 				B3550D2B27AAE13C001389CA /* Router.swift */,
+				B30569C127ABB78200030E81 /* PhotoModel.swift */,
 				B3550D3527AAE48A001389CA /* NetworkService.swift */,
 			);
 			path = Services;
@@ -126,6 +131,7 @@
 		B3550D3B27AAE6BA001389CA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B30569C327ABDDA600030E81 /* FavoriteTableViewCell.swift */,
 				B3550D3927AAE6B0001389CA /* FavoriteViewController.swift */,
 			);
 			path = View;
@@ -253,10 +259,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3550D2A27AAE118001389CA /* Assembly.swift in Sources */,
+				B30569C627ABE48C00030E81 /* UIStackViewExtension.swift in Sources */,
 				B3550D3027AAE18D001389CA /* MainPresenter.swift in Sources */,
 				B3550D2C27AAE13C001389CA /* Router.swift in Sources */,
 				B3550D1627AAE018001389CA /* AppDelegate.swift in Sources */,
 				B3550D1827AAE018001389CA /* SceneDelegate.swift in Sources */,
+				B30569C427ABDDA600030E81 /* FavoriteTableViewCell.swift in Sources */,
 				B3550D4427AAE86B001389CA /* DetailsPresenter.swift in Sources */,
 				B3550D2E27AAE172001389CA /* MainViewController.swift in Sources */,
 				B3550D4927AAEE51001389CA /* MainViewControllerCell.swift in Sources */,
