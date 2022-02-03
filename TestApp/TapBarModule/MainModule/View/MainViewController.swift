@@ -37,8 +37,8 @@ class MainViewController: UIViewController {
      
         collectionView1.register(MainViewControllerCell.self, forCellWithReuseIdentifier: "cell")
         collectionView1.translatesAutoresizingMaskIntoConstraints = false
-        //collectionView1.refreshControl = UIRefreshControl()
-       // collectionView1.refreshControl?.addTarget(self, action: #selector(refreshActions), for: .valueChanged)
+//        collectionView1.refreshControl = UIRefreshControl()
+//        collectionView1.refreshControl?.addTarget(self, action: #selector(refreshActions), for: .valueChanged)
         return collectionView1
     }()
 
@@ -133,6 +133,12 @@ extension MainViewController: UISearchBarDelegate {
             timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { [weak self] _ in
                 self?.presenter.fetchSearchPhoto(name: text!)
             })
+        } else {
+            timer?.invalidate()
+            timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { [weak self] _ in
+                self?.presenter.getPhotoInformation()
+            })
+            
         }
     }
 }

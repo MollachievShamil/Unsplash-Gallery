@@ -17,7 +17,7 @@ protocol NetworkServiceProtocol {
 class NetworkService: NetworkServiceProtocol {
     
     func fetchSearchingModels(searchText: String, completion: @escaping(SearchModel?) -> Void){
-        let urlString = "https://api.unsplash.com//search/photos?page=1&query=\(searchText)&client_id=9_x587DuHw9DllgT4tNfNTY3V8LrB6Ny92D5LiKAjmI#"
+        let urlString = "https://api.unsplash.com//search/photos?page=1&per_page=20&query=\(searchText)&client_id=9_x587DuHw9DllgT4tNfNTY3V8LrB6Ny92D5LiKAjmI#"
         fetchData(urlString: urlString, responce: completion)
     }
     

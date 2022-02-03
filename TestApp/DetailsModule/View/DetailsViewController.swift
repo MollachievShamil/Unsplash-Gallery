@@ -23,7 +23,7 @@ class DetailsViewController: UIViewController {
         autorNameLabel.text = "Name of author: " +  presenter.getNameLabel()
         dateOfCreationLabel.text = "Photo was created: " + presenter.getDateOfCreationLabel()
         locationLabel.text = "Photo was made in: " + presenter.getLocationLabel()
-        downloadsLabel.text = "Downloaded \(presenter.getDownloadsLabel()) times"
+        downloadsLabel.text = presenter.getDownloadsLabel()
     }
 
     private let imageView: UIImageView = {

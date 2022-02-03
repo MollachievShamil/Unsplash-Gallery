@@ -19,7 +19,7 @@ protocol DetailsPresenterProtocol: AnyObject{
     func getNameLabel() -> String
     func getDateOfCreationLabel() -> String
     func getLocationLabel() -> String
-    func getDownloadsLabel() -> Int
+    func getDownloadsLabel() -> String
     func downloadPhoto()
 }
 
@@ -69,12 +69,12 @@ class DetailsPresenter: DetailsPresenterProtocol {
         }
     }
     
-    func getDownloadsLabel() -> Int {
+    func getDownloadsLabel() -> String {
         let item = model?.downloads
         if let item = item {
-            return item
+            return "Downloaded \(String(item)) times"
         } else {
-            return 0
+            return ""
         }
     }
    
