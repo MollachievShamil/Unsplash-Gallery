@@ -78,7 +78,7 @@ class DetailsViewController: UIViewController {
     }()
     
     @objc func addToFavorite() {
-        alertOk(title: "Delete", massege: "Do you really want to delete this photo ")
+        alertOk(title: "Add to favorite", massege: "Do you really want to add this photo?")
     }
 
     private func setupViews() {
