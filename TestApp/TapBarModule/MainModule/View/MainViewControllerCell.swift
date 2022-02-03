@@ -13,6 +13,8 @@ class MainViewControllerCell: UICollectionViewCell {
        let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .black
+        imageView.layer.cornerRadius = 20
+        imageView.layer.masksToBounds = true
         return imageView
     }()
 
@@ -31,8 +33,8 @@ class MainViewControllerCell: UICollectionViewCell {
         self.addSubview(imageView)
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0),
-            imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5),
-            imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5),
+            imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0),
+            imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0),
             imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0),
         ])
     }

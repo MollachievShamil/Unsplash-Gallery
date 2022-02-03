@@ -23,8 +23,7 @@ class ModuleBuilder: BuilderProtocol {
         let networkService = NetworkService()
         let navigationController = createNavigationViewController(controller: view, title: "Random Images", image: UIImage(systemName: "house.fill"))
         let router = Router(navigationController: navigationController, assemblyBuilder: self)
-        let presenter = MainPresenter(view: view, router: router)
-        presenter.networkService = networkService
+        let presenter = MainPresenter(view: view, router: router, networkService: networkService)
         view.presenter = presenter
         return navigationController
     }
@@ -53,13 +52,15 @@ class ModuleBuilder: BuilderProtocol {
     private func createNavigationViewController(controller: UIViewController, title: String, image: UIImage?) -> UINavigationController {
         let navigationController = UINavigationController(rootViewController: controller)
         controller.title = title
-        controller.modalPresentationStyle = .fullScreen
-        navigationController.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.systemYellow]
-        navigationController.navigationBar.barTintColor = .lightGray
-        navigationController.navigationBar.isTranslucent = true
-        navigationController.navigationBar.prefersLargeTitles = true
-        navigationController.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+       // controller.modalPresentationStyle = .fullScreen
+        navigationController.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.black]
+        //navigationController.navigationBar.barTintColor = .green
+       // navigationController.navigationBar.isTranslucent = true
+       // navigationController.title = "fdfd"
+      //  navigationController.navigationBar.prefersLargeTitles = true
+      //  navigationController.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
         navigationController.tabBarItem = UITabBarItem(title: title, image: image, selectedImage: nil)
+       // navigationController.tabBarItem.badgeColor = .green
         return navigationController
     }
 }
@@ -73,8 +74,8 @@ extension ModuleBuilder {
         let favoriteViewController = createFavoriteControllerModule()
         
         tabBarController.viewControllers = [mainViewController, favoriteViewController]
-        tabBarController.tabBar.tintColor = .systemYellow
-        tabBarController.tabBar.barTintColor = .lightGray
+        tabBarController.tabBar.tintColor = .black
+        tabBarController.tabBar.barTintColor = .white
         return tabBarController
     }
 }
