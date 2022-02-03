@@ -55,6 +55,20 @@ class DetailsViewController: UIViewController {
     }()
     
     private var stackView = UIStackView()
+    
+    private let button: UIButton = {
+        let button = UIButton()
+        button.setTitle("Add to favorite", for: .normal)
+        button.backgroundColor = .red
+        button.addTarget(self, action: #selector(addToFavorite), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.cornerRadius = 10
+        return button
+    }()
+    
+    @objc func addToFavorite() {
+        alertOk(title: "Delete", massege: "Do you realy wont to delete this photo ")
+    }
 
     private func setupViews() {
         view.backgroundColor = .white
@@ -69,6 +83,7 @@ class DetailsViewController: UIViewController {
                                 distribution: .fillProportionally)
         
         view.addSubview(stackView)
+        view.addSubview(button)
     }
 }
 
@@ -81,16 +96,23 @@ extension DetailsViewController {
 private func setConstraints() {
     
     NSLayoutConstraint.activate([
-        imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
-        imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-        imageView.heightAnchor.constraint(equalToConstant: 100),
-        imageView.widthAnchor.constraint(equalToConstant: 100)
+        imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+        imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+        imageView.heightAnchor.constraint(equalToConstant: 300),
+        imageView.widthAnchor.constraint(equalToConstant: 300)
     ])
     
     NSLayoutConstraint.activate([
-        stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
-        stackView.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 20),
+        stackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 30),
+        stackView.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
         stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
+    ])
+    
+    NSLayoutConstraint.activate([
+        button.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 20),
+        button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+        button.heightAnchor.constraint(equalToConstant: 30),
+        button.widthAnchor.constraint(equalToConstant: 100)
     ])
     
 }

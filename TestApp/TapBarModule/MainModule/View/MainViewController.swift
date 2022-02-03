@@ -17,7 +17,7 @@ class MainViewController: UIViewController {
         setDelegate()
         setConstraints()
         setupSearchController()
-        presenter.getPhoto()
+        presenter.getPhotoInformation()
 
     }
     
@@ -30,6 +30,7 @@ class MainViewController: UIViewController {
         collectionView1.translatesAutoresizingMaskIntoConstraints = false
         return collectionView1
     }()
+    
     
     private let searchController = UISearchController(searchResultsController: nil)
     private func setupSearchController() {
