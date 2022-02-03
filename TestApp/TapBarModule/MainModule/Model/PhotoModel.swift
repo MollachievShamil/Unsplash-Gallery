@@ -8,6 +8,9 @@
 
 import Foundation
 
+struct SearchModel: Codable{
+    let results: [PhotoModel]
+}
 
 struct PhotoModel: Codable {
     let urls: Urls?

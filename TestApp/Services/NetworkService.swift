@@ -11,9 +11,16 @@ import UIKit
 protocol NetworkServiceProtocol {
     func fetchModels(completion: @escaping([PhotoModel]?) -> Void)
     func fetcImage(from pictureModel: PhotoModel, response: @escaping(Data?)-> Void)
+    func fetchSearchingModels(searchText: String, completion: @escaping(SearchModel?) -> Void)
 }
 
 class NetworkService: NetworkServiceProtocol {
+    
+    func fetchSearchingModels(searchText: String, completion: @escaping(SearchModel?) -> Void){
+        let urlString = "https://api.unsplash.com//search/photos?page=1&query=\(searchText)&client_id=9_x587DuHw9DllgT4tNfNTY3V8LrB6Ny92D5LiKAjmI#"
+        fetchData(urlString: urlString, responce: completion)
+    }
+    
     
     func fetchModels(completion: @escaping([PhotoModel]?) -> Void){
         let urlString = "https://api.unsplash.com/photos/random/?count=20&client_id=9_x587DuHw9DllgT4tNfNTY3V8LrB6Ny92D5LiKAjmI#"

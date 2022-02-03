@@ -18,6 +18,7 @@ protocol MainPresenterProtocol: AnyObject{
     func goToDetailsModule(model: PhotoModel)
     func makeImage(img: Data?) -> UIImage
     var photoModels: [PhotoModel] {get set}
+    func fetchSearchPhoto(name: String)
 }
 
 
@@ -30,10 +31,21 @@ class MainPresenter: MainPresenterProtocol {
     var photoModels: [PhotoModel] = []
 
     
+    
     required init(view: MainViewProtocol, router: RouterProtocol,networkService: NetworkServiceProtocol) {
         self.view = view
         self.router = router
         self.networkService = networkService
+    }
+    
+    func fetchSearchPhoto(name: String){
+        networkService?.fetchSearchingModels(searchText: name, completion: { model in
+         //   model?.results[0].downloads
+            guard let model = model else { return }
+            let photoModel = model.results
+            self.photoModels = photoModel
+            self.getImages()
+        })
     }
     
     func getPhotoInformation() {

@@ -58,6 +58,7 @@ class MainViewController: UIViewController {
     func setDelegate() {
         collectionView1.dataSource = self
         collectionView1.delegate = self
+        searchController.searchBar.delegate = self
 
     }
     func setConstraints() {
@@ -130,7 +131,7 @@ extension MainViewController: UISearchBarDelegate {
         if text != "" {
             timer?.invalidate()
             timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { [weak self] _ in
-               // self?.fetchAlbum(name: text!)
+                self?.presenter.fetchSearchPhoto(name: text!)
             })
         }
     }
