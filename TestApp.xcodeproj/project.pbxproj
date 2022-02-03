@@ -20,6 +20,7 @@
 		B3550D3D27AAE6D6001389CA /* FavoritePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3550D3C27AAE6D6001389CA /* FavoritePresenter.swift */; };
 		B3550D4227AAE846001389CA /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3550D4127AAE846001389CA /* DetailsViewController.swift */; };
 		B3550D4427AAE86B001389CA /* DetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3550D4327AAE86B001389CA /* DetailsPresenter.swift */; };
+		B3550D4927AAEE51001389CA /* MainViewControllerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3550D4827AAEE51001389CA /* MainViewControllerCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		B3550D3C27AAE6D6001389CA /* FavoritePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePresenter.swift; sourceTree = "<group>"; };
 		B3550D4127AAE846001389CA /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		B3550D4327AAE86B001389CA /* DetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsPresenter.swift; sourceTree = "<group>"; };
+		B3550D4827AAEE51001389CA /* MainViewControllerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewControllerCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				B3550D2D27AAE172001389CA /* MainViewController.swift */,
+				B3550D4827AAEE51001389CA /* MainViewControllerCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -253,6 +256,7 @@
 				B3550D1827AAE018001389CA /* SceneDelegate.swift in Sources */,
 				B3550D4427AAE86B001389CA /* DetailsPresenter.swift in Sources */,
 				B3550D2E27AAE172001389CA /* MainViewController.swift in Sources */,
+				B3550D4927AAEE51001389CA /* MainViewControllerCell.swift in Sources */,
 				B3550D3D27AAE6D6001389CA /* FavoritePresenter.swift in Sources */,
 				B3550D3A27AAE6B0001389CA /* FavoriteViewController.swift in Sources */,
 				B3550D3627AAE48A001389CA /* NetworkService.swift in Sources */,

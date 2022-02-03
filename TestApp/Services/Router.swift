@@ -8,7 +8,7 @@
 import UIKit
 
 protocol RouterProtocol {
-    func showComponent(id: String)
+    func showDetailsViewController()
     func pop()
     var navigationController: UINavigationController { get set }
 }
@@ -18,7 +18,7 @@ class Router: RouterProtocol {
     var navigationController: UINavigationController
     var assemblyBuilder: BuilderProtocol?
 
-    func showComponent(id: String) {
+    func showDetailsViewController() {
         guard let componentViewController = assemblyBuilder?.createDetailsModule(router: self) else { return }
         navigationController.pushViewController(componentViewController, animated: true)
     }
