@@ -29,6 +29,6 @@ class FavoritePresenter: FavoritePresenterProtocol {
     }
     
     func goToDetailsModule() {
-        router?.showDetailsViewController()
+       // router?.showDetailsViewController()
     }
 }

@@ -8,7 +8,7 @@
 import UIKit
 
 protocol BuilderProtocol: AnyObject {
-    func createDetailsModule(router: RouterProtocol) -> UIViewController
+    func createDetailsModule(router: RouterProtocol, models: PhotoModel) -> UIViewController
     func createTabBar() -> UITabBarController
 }
 
@@ -40,12 +40,13 @@ class ModuleBuilder: BuilderProtocol {
         return navigationController
     }
     
-    func createDetailsModule(router: RouterProtocol) -> UIViewController {
+    func createDetailsModule(router: RouterProtocol, models: PhotoModel) -> UIViewController {
         let view = DetailsViewController()
        // let networkService = NetWorkService()
        // let dataStoreManager = CoreDataManager()
-        let presenter = DetailsPresenter(view: view, router: router)
+        let presenter = DetailsPresenter(view: view, router: router, model: models)
         view.presenter = presenter
+      //  presenter.photoModel = models
         return view
     }
 

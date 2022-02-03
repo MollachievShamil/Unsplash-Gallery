@@ -15,7 +15,7 @@ protocol MainViewProtocol: AnyObject {
 protocol MainPresenterProtocol: AnyObject{
     init(view: MainViewProtocol, router: RouterProtocol, networkService: NetworkServiceProtocol)
     func getPhotoInformation()
-    func goToDetailsModule()
+    func goToDetailsModule(model: PhotoModel)
     func makeImage(img: Data?) -> UIImage
     var photoModels: [PhotoModel] {get set}
 }
@@ -34,7 +34,6 @@ class MainPresenter: MainPresenterProtocol {
         self.view = view
         self.router = router
         self.networkService = networkService
-        getPhotoInformation()
     }
     
     func getPhotoInformation() {
@@ -71,7 +70,7 @@ class MainPresenter: MainPresenterProtocol {
     }
     }
   
-    func goToDetailsModule() {
-        router?.showDetailsViewController()
+    func goToDetailsModule(model: PhotoModel) {
+        router?.showDetailsViewController(models: model)
     }
 }

@@ -27,18 +27,25 @@ class MainViewController: UIViewController {
         indicatorActivity.style = .large
         indicatorActivity.color = .black
         collectionView1.addSubview(indicatorActivity)
-        indicatorActivity.frame = view.frame 
+        indicatorActivity.frame = view.frame
     }
     
-    private let collectionView1: UICollectionView = {
+    let collectionView1: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
        // layout.minimumLineSpacing = 1
         let collectionView1 = UICollectionView(frame: .zero, collectionViewLayout: layout)
      
         collectionView1.register(MainViewControllerCell.self, forCellWithReuseIdentifier: "cell")
         collectionView1.translatesAutoresizingMaskIntoConstraints = false
+        //collectionView1.refreshControl = UIRefreshControl()
+       // collectionView1.refreshControl?.addTarget(self, action: #selector(refreshActions), for: .valueChanged)
         return collectionView1
     }()
+
+//    @objc func refreshActions(){
+//        print("fff")
+//        collectionView1.refreshControl?.endRefreshing()
+//    }
     
     
     private let searchController = UISearchController(searchResultsController: nil)
@@ -89,11 +96,12 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return presenter.photoModels.count
+       return presenter.photoModels.count
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        presenter.goToDetailsModule()
+        let model = presenter.photoModels[indexPath.row]
+        presenter.goToDetailsModule(model: model)
     }
 
     
