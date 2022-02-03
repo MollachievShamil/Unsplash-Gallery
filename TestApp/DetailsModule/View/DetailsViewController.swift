@@ -16,11 +16,22 @@ class DetailsViewController: UIViewController {
         view.backgroundColor = .green
         setupViews()
         setConstraints()
+        setupLabels()
+    }
+    
+    func setupLabels(){
+        autorNameLabel.text = "Name of author: " +  presenter.getNameLabel()
+        dateOfCreationLabel.text = "Photo was created: " + presenter.getDateOfCreationLabel()
+        locationLabel.text = "Photo was made in: " + presenter.getLocationLabel()
+        downloadsLabel.text = "Downloaded \(presenter.getDownloadsLabel()) times"
     }
 
     private let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .red
+        imageView.backgroundColor = .green
+        imageView.layer.cornerRadius = 20
+        imageView.layer.masksToBounds = true
+        imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -67,7 +78,7 @@ class DetailsViewController: UIViewController {
     }()
     
     @objc func addToFavorite() {
-        alertOk(title: "Delete", massege: "Do you realy wont to delete this photo ")
+        alertOk(title: "Delete", massege: "Do you really want to delete this photo ")
     }
 
     private func setupViews() {
@@ -88,7 +99,10 @@ class DetailsViewController: UIViewController {
 }
 
 extension DetailsViewController: DetailsViewProtocol {
-    
+    func setUpPhoto(image: UIImage) {
+        imageView.image = image
+    }
+
 }
 
 extension DetailsViewController {
@@ -111,8 +125,8 @@ private func setConstraints() {
     NSLayoutConstraint.activate([
         button.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 20),
         button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-        button.heightAnchor.constraint(equalToConstant: 30),
-        button.widthAnchor.constraint(equalToConstant: 100)
+        button.heightAnchor.constraint(equalToConstant: 40),
+        button.widthAnchor.constraint(equalToConstant: 150)
     ])
     
 }

@@ -42,11 +42,10 @@ class ModuleBuilder: BuilderProtocol {
     
     func createDetailsModule(router: RouterProtocol, models: PhotoModel) -> UIViewController {
         let view = DetailsViewController()
-       // let networkService = NetWorkService()
+        let networkService = NetworkService()
        // let dataStoreManager = CoreDataManager()
-        let presenter = DetailsPresenter(view: view, router: router, model: models)
+        let presenter = DetailsPresenter(view: view, router: router, model: models, networkService: networkService)
         view.presenter = presenter
-      //  presenter.photoModel = models
         return view
     }
 
