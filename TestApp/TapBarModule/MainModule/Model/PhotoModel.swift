@@ -14,7 +14,7 @@ struct PhotoModel: Codable {
     let created_at: String?
     let downloads: Int?
     let user: User?
-    let picture: Data?
+    var picture: Data?
 }
 
 struct Urls: Codable {

@@ -15,6 +15,7 @@ class MainViewControllerCell: UICollectionViewCell {
         imageView.backgroundColor = .black
         imageView.layer.cornerRadius = 20
         imageView.layer.masksToBounds = true
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
 
@@ -23,6 +24,7 @@ class MainViewControllerCell: UICollectionViewCell {
 
         setConstraints()
 
+      
     }
 
     required init?(coder: NSCoder) {

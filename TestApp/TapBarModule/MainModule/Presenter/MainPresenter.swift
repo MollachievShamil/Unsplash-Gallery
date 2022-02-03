@@ -9,13 +9,15 @@ import Foundation
 import UIKit
 
 protocol MainViewProtocol: AnyObject {
-
+    func sucsess()
 }
 
 protocol MainPresenterProtocol: AnyObject{
     init(view: MainViewProtocol, router: RouterProtocol, networkService: NetworkServiceProtocol)
     func getPhotoInformation()
     func goToDetailsModule()
+    func makeImage(img: Data?) -> UIImage
+    var photoModels: [PhotoModel] {get set}
 }
 
 
@@ -25,8 +27,8 @@ class MainPresenter: MainPresenterProtocol {
     let router: RouterProtocol?
     var networkService: NetworkServiceProtocol?
     
-    var pictureInformation: [PhotoModel]?
-    var picturesArray: [UIImage]?
+    var photoModels: [PhotoModel] = []
+
     
     required init(view: MainViewProtocol, router: RouterProtocol,networkService: NetworkServiceProtocol) {
         self.view = view
@@ -36,25 +38,38 @@ class MainPresenter: MainPresenterProtocol {
     }
     
     func getPhotoInformation() {
-        networkService?.fetchRandomImage { aa in
-            self.pictureInformation = aa
-           // print(aa)
-                 self.getImages()
+        networkService?.fetchModels { model in
+            guard let model = model else { return }
+            self.photoModels = model
+            self.getImages()
         }
+    }
+    
+    func makeImage(img: Data?) -> UIImage {
+        guard let data = img else {
+            return UIImage(systemName: "trash")!
+        }
+        if let image = UIImage(data: data) {
+            return image
+        }
+        return UIImage(systemName: "trash")!
     }
     
     func getImages() {
-        guard let pictureInformation = pictureInformation else {return}
-        
-        for (index, picture) in pictureInformation.enumerated() {
-            networkService?.fetcImage(from: picture , response: { image in
-                self.picturesArray?.append(image)
-                print(image)
+        let dispatchGroup = DispatchGroup()
+        for (index, picture) in photoModels.enumerated() {
+            dispatchGroup.enter()
+            networkService?.fetcImage(from: picture , response: { data in
+                if let data = data {
+                    self.photoModels[index].picture = data
+                    dispatchGroup.leave()
+                }
             })
         }
-        print(picturesArray)
+        dispatchGroup.notify(queue: DispatchQueue.main) {
+            self.view?.sucsess()
     }
-    
+    }
   
     func goToDetailsModule() {
         router?.showDetailsViewController()

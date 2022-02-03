@@ -9,13 +9,13 @@ import Foundation
 import UIKit
 
 protocol NetworkServiceProtocol {
-    func fetchRandomImage(completion: @escaping([PhotoModel]?) -> Void)
-    func fetcImage(from pictureModel: PhotoModel, response: @escaping(UIImage)-> Void)
+    func fetchModels(completion: @escaping([PhotoModel]?) -> Void)
+    func fetcImage(from pictureModel: PhotoModel, response: @escaping(Data?)-> Void)
 }
 
 class NetworkService: NetworkServiceProtocol {
     
-    func fetchRandomImage(completion: @escaping([PhotoModel]?) -> Void){
+    func fetchModels(completion: @escaping([PhotoModel]?) -> Void){
         let urlString = "https://api.unsplash.com/photos/random/?count=20&client_id=9_x587DuHw9DllgT4tNfNTY3V8LrB6Ny92D5LiKAjmI#"
         fetchData(urlString: urlString, responce: completion)
     }
@@ -66,15 +66,15 @@ class NetworkService: NetworkServiceProtocol {
         .resume()
     }
     
-    func fetcImage(from pictureModel: PhotoModel, response: @escaping(UIImage)-> Void){
+    func fetcImage(from pictureModel: PhotoModel, response: @escaping(Data?)-> Void){
 
         if let urlString = pictureModel.urls?.small {
             requestData(urlString: urlString) { result in
                 switch result {
                 case .success(let data):
-                    let image = UIImage(data: data)
-                    response(image!)
+                    response(data)
                 case .failure(let error):
+                    response(nil)
                     print("No album logo" + error.localizedDescription)
                 }
             }

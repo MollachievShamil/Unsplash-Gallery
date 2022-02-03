@@ -18,7 +18,16 @@ class MainViewController: UIViewController {
         setConstraints()
         setupSearchController()
         presenter.getPhotoInformation()
-
+        setupActivityIndicator()
+        indicatorActivity.startAnimating()
+    }
+    
+    var indicatorActivity = UIActivityIndicatorView()
+    func setupActivityIndicator() {
+        indicatorActivity.style = .large
+        indicatorActivity.color = .black
+        collectionView1.addSubview(indicatorActivity)
+        indicatorActivity.frame = view.frame 
     }
     
     private let collectionView1: UICollectionView = {
@@ -56,6 +65,13 @@ class MainViewController: UIViewController {
 }
 
 extension MainViewController: MainViewProtocol {
+    func sucsess() {
+        collectionView1.reloadData()
+        indicatorActivity.stopAnimating()
+        indicatorActivity.hidesWhenStopped = true
+    }
+    
+ 
 }
 
 
@@ -63,16 +79,17 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! MainViewControllerCell
+        cell.imageView.image = presenter.makeImage(img: presenter.photoModels[indexPath.row].picture)
         //cell.contentView.backgroundColor = .systemBlue
         //let song = songs[indexPath.row].trackName
      //   let images = presenter.getPhoto()
-        cell.imageView.image = UIImage(named: "1")
+       // cell.imageView.image = UIImage(named: "1")
         return cell
     }
     
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
+        return presenter.photoModels.count
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
