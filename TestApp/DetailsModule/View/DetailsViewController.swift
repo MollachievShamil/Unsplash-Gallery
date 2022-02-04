@@ -83,26 +83,14 @@ class DetailsViewController: UIViewController {
         let model = RealmPictureModel()
         model.name = presenter.getNameLabel()
         model.pictureData = presenter.getData()
-        presenter.saveToRealm(model: model)
+        model.URL = presenter.getURL()
+        model.downloads = presenter.model?.downloads ?? 0
+        model.createdAt = presenter.model?.created_at ?? ""
+        model.location = presenter.getLocationLabel()
+        presenter.deleteFromRealm(model: model)
+        
     }
 
-    private let deleteButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Add to favorite", for: .normal)
-        button.backgroundColor = .red
-        button.addTarget(self, action: #selector(deleteFromFavorite), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.cornerRadius = 10
-        return button
-    }()
-    
-    @objc func deleteFromFavorite() {
-        let model = RealmPictureModel()
-        model.name = presenter.getNameLabel()
-        model.pictureData = presenter.getData()
-        presenter.deleteFromRealm(model: model)
-    }
-    
     private func setupViews() {
         view.backgroundColor = .white
         view.addSubview(imageView)
@@ -117,7 +105,7 @@ class DetailsViewController: UIViewController {
         
         view.addSubview(stackView)
         view.addSubview(button)
-        view.addSubview(deleteButton)
+
     }
 }
 
@@ -152,12 +140,6 @@ private func setConstraints() {
         button.widthAnchor.constraint(equalToConstant: 150)
     ])
     
-    NSLayoutConstraint.activate([
-        deleteButton.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 20),
-        deleteButton.leadingAnchor.constraint(equalTo: button.trailingAnchor),
-        deleteButton.heightAnchor.constraint(equalToConstant: 40),
-        deleteButton.widthAnchor.constraint(equalToConstant: 150)
-    ])
-    
+
 }
 }

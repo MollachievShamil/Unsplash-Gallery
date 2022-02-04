@@ -12,6 +12,7 @@ protocol NetworkServiceProtocol {
     func fetchModels(completion: @escaping([PhotoModel]?) -> Void)
     func fetcImage(from pictureModel: PhotoModel, response: @escaping(Data?)-> Void)
     func fetchSearchingModels(searchText: String, completion: @escaping(SearchModel?) -> Void)
+    func fetcRealmImage(from pictureModel: RealmPictureModel, response: @escaping(Data?)-> Void)
 }
 
 class NetworkService: NetworkServiceProtocol {
@@ -40,7 +41,21 @@ class NetworkService: NetworkServiceProtocol {
             }
         }
     }
+   
+    func fetcRealmImage(from pictureModel: RealmPictureModel, response: @escaping(Data?)-> Void){
 
+         let urlString = pictureModel.URL
+            requestData(urlString: urlString) { result in
+                switch result {
+                case .success(let data):
+                    response(data)
+                case .failure(let error):
+                    response(nil)
+                    print("No photos" + error.localizedDescription)
+                }
+            }
+        
+    }
     
     
     

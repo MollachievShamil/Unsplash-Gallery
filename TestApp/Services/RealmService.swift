@@ -17,6 +17,9 @@ protocol RealmServiceProtocol {
 class RealmService: RealmServiceProtocol {
     
  //   static var shared = RealmService()
+    init() {
+        obtainUsers()
+    }
     
     var realm = try! Realm()
   
@@ -25,18 +28,18 @@ class RealmService: RealmServiceProtocol {
  
     func saveDelete(picture: RealmPictureModel) {
         obtainUsers()
-        
+        print(picture)
         if picturesInRealm?.count != 0 {
         
         for i in 0...picturesInRealm!.count - 1{
                     if picturesInRealm![i].name == picture.name {
                        delete(model: picture )
-                        print(picturesInRealm)
+                       // print(picturesInRealm)
                         return
                     }
         }
                       save(picture: picture)
-        print(picturesInRealm)
+       // print(picturesInRealm)
        
         } else {
             save(picture: picture)
@@ -60,7 +63,6 @@ class RealmService: RealmServiceProtocol {
        obtainUsers()
         do {
             try realm.write {
-               // realm.delete(picturesInRealm![0])
                 realm.delete(realm.objects(RealmPictureModel.self).filter("name=%@",model.name))
                 print("deleted")
             }

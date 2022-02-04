@@ -17,6 +17,12 @@ class FavoriteViewController: UIViewController {
         setupViews()
         setupConstraints()
         setupDelegate()
+      //  presenter.getImages()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
     }
  
     private let tableView: UITableView = {
@@ -24,7 +30,6 @@ class FavoriteViewController: UIViewController {
         tableView.backgroundColor = .white
         tableView.register(FavoriteTableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.backgroundColor = .green
         return tableView
     }()
    
@@ -40,6 +45,10 @@ class FavoriteViewController: UIViewController {
 }
 
 extension FavoriteViewController: FavoriteViewProtocol {
+    func sucsess() {
+        tableView.reloadData()
+    }
+    
     
 }
 
@@ -57,13 +66,13 @@ extension FavoriteViewController {
 extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
   
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return presenter.getNumresOfCells()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! FavoriteTableViewCell
-       // cell.configureAlbumeCell(album: album)
-        
+        cell.nameLabel.text = presenter.fetchName(index: indexPath.row)
+        cell.photoImageView.image = presenter.makeImage(ind: indexPath.row)
         return cell
     }
     
@@ -72,7 +81,7 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter.goToDetailsModule()
+        presenter.goToDetailsModule(ind: indexPath.row)
     }
     
     

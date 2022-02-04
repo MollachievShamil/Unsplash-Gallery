@@ -11,7 +11,7 @@ import UIKit
 class FavoriteTableViewCell: UITableViewCell {
     
 
-private let photoImageView: UIImageView = {
+let photoImageView: UIImageView = {
    let photoImageView = UIImageView()
     photoImageView.backgroundColor = .red
     photoImageView.clipsToBounds = true
@@ -19,7 +19,7 @@ private let photoImageView: UIImageView = {
     return photoImageView
 }()
 
-private let nameLabel: UILabel = {
+ let nameLabel: UILabel = {
    let label = UILabel()
     label.text = "Name album name"
     label.font = UIFont.systemFont(ofSize: 20)
@@ -31,30 +31,6 @@ private let nameLabel: UILabel = {
         super.layoutSubviews()
         photoImageView.layer.cornerRadius = photoImageView.frame.width / 2
     }
-    
-//    func configureAlbumeCell(album: Album) {
-//
-//        // dont know how made this module outside
-//        if let urlString = album.artworkUrl100 {
-//            NetworkRequest.shared.requestData(urlString: urlString) { result in
-//                switch result {
-//                case .success(let data):
-//                    let image = UIImage(data: data)
-//                    //print(image)
-//                    self.albumLogo.image = image
-//                case .failure(let error):
-//                    self.albumLogo.image = nil
-//                    print("No album logo" + error.localizedDescription)
-//                }
-//            }
-//        } else {
-//            photoImageView.image = nil
-//        }
-//
-//        nameLabel.text = album.collectionName
-//        artistNameLabel.text = album.artistName
-//
-//    }
 
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

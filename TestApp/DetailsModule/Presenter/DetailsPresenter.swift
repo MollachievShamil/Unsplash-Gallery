@@ -24,6 +24,7 @@ protocol DetailsPresenterProtocol: AnyObject{
     func getData() -> Data
     func saveToRealm(model: RealmPictureModel)
     func deleteFromRealm(model: RealmPictureModel)
+    func getURL() -> String
 }
 
 
@@ -51,6 +52,16 @@ class DetailsPresenter: DetailsPresenterProtocol {
     
     func saveToRealm(model: RealmPictureModel) {
       //  realm.save(picture: model)
+    }
+    
+    func getURL() -> String {
+        let item = model?.urls?.small
+        if let item = item {
+
+            return item
+        } else {
+            return " .......... "
+        }
     }
 
     func getData() -> Data {
@@ -92,6 +103,7 @@ class DetailsPresenter: DetailsPresenterProtocol {
     
     func getDownloadsLabel() -> String {
         let item = model?.downloads
+        
         if let item = item {
             return "Downloaded \(String(item)) times"
         } else {

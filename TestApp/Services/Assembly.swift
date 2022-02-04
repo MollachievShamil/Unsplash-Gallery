@@ -14,9 +14,6 @@ protocol BuilderProtocol: AnyObject {
 
 class ModuleBuilder: BuilderProtocol {
     
-   // var navigationController: UINavigationController?
-    
-   //var assemblyBuilder: BuilderProtocol?
 
     private func createMainViewControllerModule() -> UIViewController {
         let view = MainViewController()
@@ -31,11 +28,11 @@ class ModuleBuilder: BuilderProtocol {
     
     private func createFavoriteControllerModule() -> UIViewController {
         let view = FavoriteViewController()
-       // let networkService = NetworkService()
-        //let dataStoreManager = CoreDataManager()
+        let networkService = NetworkService()
         let navigationController = createNavigationViewController(controller: view, title: "Favorite", image: UIImage(systemName: "heart.fill"))
         let router = Router(navigationController: navigationController, assemblyBuilder: self)
-        let presenter = FavoritePresenter(view: view, router: router)
+        let realm = RealmService()
+        let presenter = FavoritePresenter(view: view, router: router, realm: realm, networkService: networkService)
         view.presenter = presenter
         return navigationController
     }
@@ -43,7 +40,6 @@ class ModuleBuilder: BuilderProtocol {
     func createDetailsModule(router: RouterProtocol, models: PhotoModel) -> UIViewController {
         let view = DetailsViewController()
         let networkService = NetworkService()
-       // let dataStoreManager = CoreDataManager()
         let realm = RealmService()
         let presenter = DetailsPresenter(view: view, router: router, model: models, networkService: networkService, realm: realm)
         view.presenter = presenter
