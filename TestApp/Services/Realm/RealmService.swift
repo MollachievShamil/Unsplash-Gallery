@@ -13,6 +13,7 @@ protocol RealmServiceProtocol {
     func saveDelete(picture: RealmPictureModel)
     var picturesInRealm: Results<RealmPictureModel>? { get set }
     func imageExistInRealm(model: RealmPictureModel) -> Bool
+    func delete(model: RealmPictureModel)
 }
 
 class RealmService: RealmServiceProtocol {

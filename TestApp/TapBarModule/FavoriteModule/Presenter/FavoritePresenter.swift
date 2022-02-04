@@ -19,6 +19,7 @@ protocol FavoritePresenterProtocol: AnyObject{
     func getNumresOfCells()-> Int
     func makeImage(ind: Int) -> UIImage
     var images: [Data] {get set}
+    func deleteWithSwipe(ind: Int)
 }
 
 
@@ -74,4 +75,10 @@ class FavoritePresenter: FavoritePresenterProtocol {
       let model = createModel(ind: ind)
         router?.showDetailsViewController(models: model)
     }
+    
+    func deleteWithSwipe(ind: Int) {
+        let model = (realm?.picturesInRealm![ind])!
+        realm?.delete(model: model)
+        view?.sucsess()
+ }
 }

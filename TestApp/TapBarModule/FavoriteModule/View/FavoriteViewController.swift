@@ -72,8 +72,12 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter.goToDetailsModule(ind: indexPath.row)
     }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            presenter.deleteWithSwipe(ind: indexPath.row)
+    }
 }
-
+}
 
 //MARK: - Constraints
 extension FavoriteViewController {
