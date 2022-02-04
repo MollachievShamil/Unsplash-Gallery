@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1184FCDA26C93A1E4923D501 /* Pods_TestApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C87084534250570DF097CA66 /* Pods_TestApp.framework */; };
 		B30569C227ABB78200030E81 /* PhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30569C127ABB78200030E81 /* PhotoModel.swift */; };
 		B30569C427ABDDA600030E81 /* FavoriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30569C327ABDDA600030E81 /* FavoriteTableViewCell.swift */; };
 		B30569C627ABE48C00030E81 /* UIStackViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30569C527ABE48C00030E81 /* UIStackViewExtension.swift */; };
@@ -25,9 +26,12 @@
 		B3550D4227AAE846001389CA /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3550D4127AAE846001389CA /* DetailsViewController.swift */; };
 		B3550D4427AAE86B001389CA /* DetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3550D4327AAE86B001389CA /* DetailsPresenter.swift */; };
 		B3550D4927AAEE51001389CA /* MainViewControllerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3550D4827AAEE51001389CA /* MainViewControllerCell.swift */; };
+		B3E45B6B27ACFE55005448C3 /* RealmPictureModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E45B6A27ACFE55005448C3 /* RealmPictureModel.swift */; };
+		B3E45B7127AD04BB005448C3 /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E45B7027AD04BB005448C3 /* RealmService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B0BEDB07CD8B8647055E29D8 /* Pods-TestApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestApp.release.xcconfig"; path = "Target Support Files/Pods-TestApp/Pods-TestApp.release.xcconfig"; sourceTree = "<group>"; };
 		B30569C127ABB78200030E81 /* PhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModel.swift; sourceTree = "<group>"; };
 		B30569C327ABDDA600030E81 /* FavoriteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewCell.swift; sourceTree = "<group>"; };
 		B30569C527ABE48C00030E81 /* UIStackViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackViewExtension.swift; sourceTree = "<group>"; };
@@ -48,6 +52,10 @@
 		B3550D4127AAE846001389CA /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		B3550D4327AAE86B001389CA /* DetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsPresenter.swift; sourceTree = "<group>"; };
 		B3550D4827AAEE51001389CA /* MainViewControllerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewControllerCell.swift; sourceTree = "<group>"; };
+		B3E45B6A27ACFE55005448C3 /* RealmPictureModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RealmPictureModel.swift; path = /Users/shamilmollachiev/Desktop/TestApp/TestApp/Services/RealmPictureModel.swift; sourceTree = "<absolute>"; };
+		B3E45B7027AD04BB005448C3 /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
+		C87084534250570DF097CA66 /* Pods_TestApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FAAE9875F9139934716054F1 /* Pods-TestApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestApp.debug.xcconfig"; path = "Target Support Files/Pods-TestApp/Pods-TestApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,12 +63,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1184FCDA26C93A1E4923D501 /* Pods_TestApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9265A73D64566C127A39B219 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FAAE9875F9139934716054F1 /* Pods-TestApp.debug.xcconfig */,
+				B0BEDB07CD8B8647055E29D8 /* Pods-TestApp.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		B30569C927ABE87400030E81 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +101,8 @@
 			children = (
 				B3550D1427AAE018001389CA /* TestApp */,
 				B3550D1327AAE018001389CA /* Products */,
+				9265A73D64566C127A39B219 /* Pods */,
+				C8091F223813C9E46461BBD6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -143,6 +163,8 @@
 				B3550D2927AAE118001389CA /* Assembly.swift */,
 				B3550D2B27AAE13C001389CA /* Router.swift */,
 				B3550D3527AAE48A001389CA /* NetworkService.swift */,
+				B3E45B7027AD04BB005448C3 /* RealmService.swift */,
+				B3E45B6A27ACFE55005448C3 /* RealmPictureModel.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -207,6 +229,14 @@
 			path = DetailsModule;
 			sourceTree = "<group>";
 		};
+		C8091F223813C9E46461BBD6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C87084534250570DF097CA66 /* Pods_TestApp.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -214,9 +244,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B3550D2627AAE01A001389CA /* Build configuration list for PBXNativeTarget "TestApp" */;
 			buildPhases = (
+				0B8FD38D554EBB5CBE9C9426 /* [CP] Check Pods Manifest.lock */,
 				B3550D0E27AAE018001389CA /* Sources */,
 				B3550D0F27AAE018001389CA /* Frameworks */,
 				B3550D1027AAE018001389CA /* Resources */,
+				3F1B091AB699BCCF6931753A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -272,11 +304,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0B8FD38D554EBB5CBE9C9426 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TestApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3F1B091AB699BCCF6931753A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TestApp/Pods-TestApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TestApp/Pods-TestApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TestApp/Pods-TestApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		B3550D0E27AAE018001389CA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3E45B6B27ACFE55005448C3 /* RealmPictureModel.swift in Sources */,
 				B3550D2A27AAE118001389CA /* Assembly.swift in Sources */,
 				B30569C627ABE48C00030E81 /* UIStackViewExtension.swift in Sources */,
 				B3550D3027AAE18D001389CA /* MainPresenter.swift in Sources */,
@@ -289,6 +364,7 @@
 				B3550D4927AAEE51001389CA /* MainViewControllerCell.swift in Sources */,
 				B30569C827ABE86B00030E81 /* UIViewController + Extension.swift in Sources */,
 				B3550D3D27AAE6D6001389CA /* FavoritePresenter.swift in Sources */,
+				B3E45B7127AD04BB005448C3 /* RealmService.swift in Sources */,
 				B3550D3A27AAE6B0001389CA /* FavoriteViewController.swift in Sources */,
 				B3550D3627AAE48A001389CA /* NetworkService.swift in Sources */,
 				B30569C227ABB78200030E81 /* PhotoModel.swift in Sources */,
@@ -428,6 +504,7 @@
 		};
 		B3550D2727AAE01A001389CA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FAAE9875F9139934716054F1 /* Pods-TestApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -454,6 +531,7 @@
 		};
 		B3550D2827AAE01A001389CA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B0BEDB07CD8B8647055E29D8 /* Pods-TestApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

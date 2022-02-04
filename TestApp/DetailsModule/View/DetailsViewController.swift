@@ -9,6 +9,8 @@ import UIKit
 
 class DetailsViewController: UIViewController {
 
+   // var realms = RealmService()
+    
     var presenter: DetailsPresenterProtocol!
     
     override func viewDidLoad() {
@@ -78,9 +80,29 @@ class DetailsViewController: UIViewController {
     }()
     
     @objc func addToFavorite() {
-        alertOk(title: "Add to favorite", massege: "Do you really want to add this photo?")
+        let model = RealmPictureModel()
+        model.name = presenter.getNameLabel()
+        model.pictureData = presenter.getData()
+        presenter.saveToRealm(model: model)
     }
 
+    private let deleteButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Add to favorite", for: .normal)
+        button.backgroundColor = .red
+        button.addTarget(self, action: #selector(deleteFromFavorite), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.cornerRadius = 10
+        return button
+    }()
+    
+    @objc func deleteFromFavorite() {
+        let model = RealmPictureModel()
+        model.name = presenter.getNameLabel()
+        model.pictureData = presenter.getData()
+        presenter.deleteFromRealm(model: model)
+    }
+    
     private func setupViews() {
         view.backgroundColor = .white
         view.addSubview(imageView)
@@ -95,6 +117,7 @@ class DetailsViewController: UIViewController {
         
         view.addSubview(stackView)
         view.addSubview(button)
+        view.addSubview(deleteButton)
     }
 }
 
@@ -127,6 +150,13 @@ private func setConstraints() {
         button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
         button.heightAnchor.constraint(equalToConstant: 40),
         button.widthAnchor.constraint(equalToConstant: 150)
+    ])
+    
+    NSLayoutConstraint.activate([
+        deleteButton.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 20),
+        deleteButton.leadingAnchor.constraint(equalTo: button.trailingAnchor),
+        deleteButton.heightAnchor.constraint(equalToConstant: 40),
+        deleteButton.widthAnchor.constraint(equalToConstant: 150)
     ])
     
 }

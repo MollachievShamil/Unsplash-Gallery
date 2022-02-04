@@ -21,6 +21,9 @@ protocol DetailsPresenterProtocol: AnyObject{
     func getLocationLabel() -> String
     func getDownloadsLabel() -> String
     func downloadPhoto()
+    func getData() -> Data
+    func saveToRealm(model: RealmPictureModel)
+    func deleteFromRealm(model: RealmPictureModel)
 }
 
 
@@ -32,6 +35,8 @@ class DetailsPresenter: DetailsPresenterProtocol {
     var networkService: NetworkServiceProtocol?
     var model: PhotoModel?
     
+    var realm = RealmService()
+    
     required init(view: DetailsViewProtocol, router: RouterProtocol, model: PhotoModel, networkService: NetworkServiceProtocol) {
         self.view = view
         self.router = router
@@ -39,7 +44,22 @@ class DetailsPresenter: DetailsPresenterProtocol {
         self.networkService = networkService
         downloadPhoto()
     }
+    func deleteFromRealm(model: RealmPictureModel) {
+        realm.saveDelete(picture: model)
+    }
+    
+    func saveToRealm(model: RealmPictureModel) {
+      //  realm.save(picture: model)
+    }
 
+    func getData() -> Data {
+        let item = model?.picture
+        if let item = item {
+            return item
+        }
+        return Data()
+    }
+    
     func getNameLabel() -> String {
         let item = model?.user?.name
         if let item = item {
