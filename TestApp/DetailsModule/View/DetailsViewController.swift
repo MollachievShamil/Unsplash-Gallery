@@ -171,5 +171,5 @@ private func setConstraints() {
         button.heightAnchor.constraint(equalToConstant: 40),
         button.widthAnchor.constraint(equalToConstant: 150)
     ])
-}
+ }
 }

@@ -73,6 +73,7 @@ class RealmService: RealmServiceProtocol {
             print("Error deleting context \(error)")
         }
     }
+ 
     
     func obtainUsers() {
         let realm = try! Realm()
