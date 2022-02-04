@@ -52,6 +52,7 @@ class DetailsViewController: UIViewController {
     private let locationLabel: UILabel = {
         let label = UILabel()
         label.text = "Location"
+        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -155,8 +156,8 @@ private func setConstraints() {
     NSLayoutConstraint.activate([
         imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
         imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-        imageView.heightAnchor.constraint(equalToConstant: 300),
-        imageView.widthAnchor.constraint(equalToConstant: 300)
+        imageView.heightAnchor.constraint(equalToConstant: view.frame.width/2),
+        imageView.widthAnchor.constraint(equalToConstant: view.frame.width/2)
     ])
     
     NSLayoutConstraint.activate([

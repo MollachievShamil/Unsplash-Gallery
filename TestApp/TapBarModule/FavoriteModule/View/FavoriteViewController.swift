@@ -79,7 +79,7 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
 }
 }
 
-//MARK: - Constraints
+//MARK: - Constraints.
 extension FavoriteViewController {
     func setupConstraints() {
         NSLayoutConstraint.activate([

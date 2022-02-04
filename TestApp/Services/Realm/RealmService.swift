@@ -27,12 +27,16 @@ class RealmService: RealmServiceProtocol {
     
     func imageExistInRealm(model: RealmPictureModel) -> Bool {
         obtainUsers()
+        if picturesInRealm?.count != 0 {
         for i in 0...picturesInRealm!.count - 1{
             if picturesInRealm![i].name == model.name {
                 return true
             }
         }
         return false
+        } else {
+            return false
+        }
     }
     
     
