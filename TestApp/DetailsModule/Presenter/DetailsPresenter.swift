@@ -14,7 +14,7 @@ protocol DetailsViewProtocol: AnyObject {
 }
 
 protocol DetailsPresenterProtocol: AnyObject{
-    init(view: DetailsViewProtocol, router: RouterProtocol, model: PhotoModel, networkService: NetworkServiceProtocol)
+    init(view: DetailsViewProtocol, router: RouterProtocol, model: PhotoModel, networkService: NetworkServiceProtocol, realm: RealmServiceProtocol)
     var model: PhotoModel? {get set}
     func getNameLabel() -> String
     func getDateOfCreationLabel() -> String
@@ -34,18 +34,19 @@ class DetailsPresenter: DetailsPresenterProtocol {
     let router: RouterProtocol?
     var networkService: NetworkServiceProtocol?
     var model: PhotoModel?
+    var realm: RealmServiceProtocol?
     
-    var realm = RealmService()
-    
-    required init(view: DetailsViewProtocol, router: RouterProtocol, model: PhotoModel, networkService: NetworkServiceProtocol) {
+    required init(view: DetailsViewProtocol, router: RouterProtocol, model: PhotoModel, networkService: NetworkServiceProtocol, realm: RealmServiceProtocol) {
         self.view = view
         self.router = router
         self.model = model
         self.networkService = networkService
+        self.realm = realm
+       
         downloadPhoto()
     }
     func deleteFromRealm(model: RealmPictureModel) {
-        realm.saveDelete(picture: model)
+        realm?.saveDelete(picture: model)
     }
     
     func saveToRealm(model: RealmPictureModel) {

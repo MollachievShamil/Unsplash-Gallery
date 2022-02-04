@@ -44,7 +44,8 @@ class ModuleBuilder: BuilderProtocol {
         let view = DetailsViewController()
         let networkService = NetworkService()
        // let dataStoreManager = CoreDataManager()
-        let presenter = DetailsPresenter(view: view, router: router, model: models, networkService: networkService)
+        let realm = RealmService()
+        let presenter = DetailsPresenter(view: view, router: router, model: models, networkService: networkService, realm: realm)
         view.presenter = presenter
         return view
     }

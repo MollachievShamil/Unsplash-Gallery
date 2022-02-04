@@ -10,7 +10,8 @@ import Foundation
 import RealmSwift
 
 protocol RealmServiceProtocol {
-    //func save(user: User)
+    func saveDelete(picture: RealmPictureModel)
+    var picturesInRealm: Results<RealmPictureModel>? { get set }
 }
 
 class RealmService: RealmServiceProtocol {
