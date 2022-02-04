@@ -59,10 +59,8 @@ extension ModuleBuilder {
     
     func createTabBar() -> UITabBarController {
         let tabBarController = UITabBarController()
-        
         let mainViewController = createMainViewControllerModule()
         let favoriteViewController = createFavoriteControllerModule()
-        
         tabBarController.viewControllers = [mainViewController, favoriteViewController]
         tabBarController.tabBar.tintColor = .black
         tabBarController.tabBar.barTintColor = .white

@@ -9,7 +9,6 @@ import UIKit
 
 class DetailsViewController: UIViewController {
 
-    
     var presenter: DetailsPresenterProtocol!
     
     override func viewDidLoad() {
@@ -23,36 +22,6 @@ class DetailsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setButton()
-    }
-    
-    func setButton() {
-        let model = makeModel()
-        if presenter.imageExistInRealm(model: model) {
-            print("exist")
-            button.backgroundColor = .red
-            button.setTitle("Delete", for: .normal)
-        } else {
-            print("dont exist")
-            button.backgroundColor = .orange
-            button.setTitle("Add", for: .normal)
-        }
-    }
-    
-    func setAlert(){
-        let model = makeModel()
-        if presenter.imageExistInRealm(model: model) {
-            alertOk(title: "Add", massege: "Photo sucsessfuly added")
-            
-        } else {
-            alertOk(title: "Delete", massege: "Photo sucsessfuly deleted")
-        }
-    }
-    
-    func setupLabels(){
-        autorNameLabel.text = "Name of author: " +  presenter.getNameLabel()
-        dateOfCreationLabel.text = "Photo was created: " + presenter.getDateOfCreationLabel()
-        locationLabel.text = "Photo was made in: " + presenter.getLocationLabel()
-        downloadsLabel.text = presenter.getDownloadsLabel()
     }
 
     private let imageView: UIImageView = {
@@ -106,6 +75,51 @@ class DetailsViewController: UIViewController {
         return button
     }()
     
+    func setButton() {
+        let model = makeModel()
+        if presenter.imageExistInRealm(model: model) {
+            button.backgroundColor = .red
+            button.setTitle("Delete", for: .normal)
+        } else {
+            button.backgroundColor = .orange
+            button.setTitle("Add", for: .normal)
+        }
+    }
+    
+    private func setupViews() {
+        view.backgroundColor = .white
+        view.addSubview(imageView)
+        
+        stackView = UIStackView(arrangedSubviews: [autorNameLabel,
+                                                   dateOfCreationLabel,
+                                                   locationLabel,
+                                                   downloadsLabel],
+                                axis: .vertical,
+                                spacing: 20,
+                                distribution: .fillProportionally)
+        
+        view.addSubview(stackView)
+        view.addSubview(button)
+    }
+    
+    
+    func setupLabels(){
+        autorNameLabel.text = "Name of author: " +  presenter.getNameLabel()
+        dateOfCreationLabel.text = "Photo was created: " + presenter.getDateOfCreationLabel()
+        locationLabel.text = "Photo was made in: " + presenter.getLocationLabel()
+        downloadsLabel.text = presenter.getDownloadsLabel()
+    }
+    
+    func setAlert(){
+        let model = makeModel()
+        if presenter.imageExistInRealm(model: model) {
+            alertOk(title: "Add", massege: "Photo sucsessfuly added")
+            
+        } else {
+            alertOk(title: "Delete", massege: "Photo sucsessfuly deleted")
+        }
+    }
+    
     func makeModel() -> RealmPictureModel {
         let model = RealmPictureModel()
         model.name = presenter.getNameLabel()
@@ -122,34 +136,18 @@ class DetailsViewController: UIViewController {
         presenter.saveDeleteFromRealm(model: model)
         setAlert()
         setButton()
-    
-    }
-
-    private func setupViews() {
-        view.backgroundColor = .white
-        view.addSubview(imageView)
-        
-        stackView = UIStackView(arrangedSubviews: [autorNameLabel,
-                                                   dateOfCreationLabel,
-                                                   locationLabel,
-                                                   downloadsLabel],
-                                axis: .vertical,
-                                spacing: 20,
-                                distribution: .fillProportionally)
-        
-        view.addSubview(stackView)
-        view.addSubview(button)
-
     }
 }
 
+//MARK: - Presenter Protocol
 extension DetailsViewController: DetailsViewProtocol {
     func setUpPhoto(image: UIImage) {
         imageView.image = image
     }
-
 }
 
+
+//MARK: -  Constraints
 extension DetailsViewController {
 
 private func setConstraints() {
@@ -173,7 +171,5 @@ private func setConstraints() {
         button.heightAnchor.constraint(equalToConstant: 40),
         button.widthAnchor.constraint(equalToConstant: 150)
     ])
-    
-
 }
 }

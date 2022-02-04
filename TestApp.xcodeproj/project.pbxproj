@@ -150,7 +150,6 @@
 		B3550D3327AAE1BA001389CA /* MainModule */ = {
 			isa = PBXGroup;
 			children = (
-				B30569CA27ABE9FF00030E81 /* Model */,
 				B3550D3227AAE1AB001389CA /* Presenter */,
 				B3550D3127AAE19E001389CA /* View */,
 			);
@@ -162,9 +161,8 @@
 			children = (
 				B3550D2927AAE118001389CA /* Assembly.swift */,
 				B3550D2B27AAE13C001389CA /* Router.swift */,
-				B3550D3527AAE48A001389CA /* NetworkService.swift */,
-				B3E45B7027AD04BB005448C3 /* RealmService.swift */,
-				B3E45B6A27ACFE55005448C3 /* RealmPictureModel.swift */,
+				B3E45B7327AD5AB7005448C3 /* Network */,
+				B3E45B7227AD5AAB005448C3 /* Realm */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -227,6 +225,24 @@
 				B3550D4527AAE872001389CA /* View */,
 			);
 			path = DetailsModule;
+			sourceTree = "<group>";
+		};
+		B3E45B7227AD5AAB005448C3 /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				B3E45B7027AD04BB005448C3 /* RealmService.swift */,
+				B3E45B6A27ACFE55005448C3 /* RealmPictureModel.swift */,
+			);
+			path = Realm;
+			sourceTree = "<group>";
+		};
+		B3E45B7327AD5AB7005448C3 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				B3550D3527AAE48A001389CA /* NetworkService.swift */,
+				B30569CA27ABE9FF00030E81 /* Model */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		C8091F223813C9E46461BBD6 /* Frameworks */ = {

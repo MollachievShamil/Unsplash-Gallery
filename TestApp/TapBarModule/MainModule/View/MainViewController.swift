@@ -11,7 +11,7 @@ class MainViewController: UIViewController {
     
     var presenter: MainPresenterProtocol!
     var timer: Timer?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setDelegate()
@@ -23,6 +23,7 @@ class MainViewController: UIViewController {
     }
     
     var indicatorActivity = UIActivityIndicatorView()
+   
     func setupActivityIndicator() {
         indicatorActivity.style = .large
         indicatorActivity.color = .black
@@ -54,40 +55,29 @@ class MainViewController: UIViewController {
         navigationItem.rightBarButtonItem = usetInfiButton
     }
     
-     
     @objc func refreshButtonTapped(){
         presenter.getPhotoInformation()
         indicatorActivity.startAnimating()
     }
     
-    
-    
     private let searchController = UISearchController(searchResultsController: nil)
+    
     private func setupSearchController() {
         searchController.searchBar.placeholder = "Search"
         searchController.obscuresBackgroundDuringPresentation = false
         navigationItem.searchController = searchController
     }
-   
+    
+    //MARK: - Delegates
     func setDelegate() {
         collectionView1.dataSource = self
         collectionView1.delegate = self
         searchController.searchBar.delegate = self
-
-    }
-    func setConstraints() {
-        view.addSubview(collectionView1)
-        NSLayoutConstraint.activate([
-            collectionView1.topAnchor.constraint(equalTo: view.topAnchor),
-            collectionView1.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView1.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView1.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
     }
 }
 
+//MARK: - Presenter Delegate
 extension MainViewController: MainViewProtocol {
-   
     func sucsess() {
         collectionView1.reloadData()
         indicatorActivity.stopAnimating()
@@ -95,7 +85,7 @@ extension MainViewController: MainViewProtocol {
     }
 }
 
-
+//MARK: - Collection View Delegates
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -104,16 +94,15 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         return cell
     }
     
-
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-       return presenter.photoModels.count
+        return presenter.photoModels.count
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let model = presenter.photoModels[indexPath.row]
         presenter.goToDetailsModule(model: model)
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         CGSize(
             width: (view.frame.size.width/2) - 12,
@@ -124,12 +113,13 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 12
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 6, left: 6, bottom: 6, right: 6)
     }
 }
 
+//MARK: -  Search Bar Delegate
 extension MainViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         print(searchText)
@@ -143,5 +133,18 @@ extension MainViewController: UISearchBarDelegate {
                 self?.indicatorActivity.startAnimating()
             })
         }
+    }
+}
+
+//MARK: - Constraints
+extension MainViewController {
+    func setConstraints() {
+        view.addSubview(collectionView1)
+        NSLayoutConstraint.activate([
+            collectionView1.topAnchor.constraint(equalTo: view.topAnchor),
+            collectionView1.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView1.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView1.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
     }
 }

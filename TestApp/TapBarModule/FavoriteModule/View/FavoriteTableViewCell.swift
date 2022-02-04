@@ -46,7 +46,6 @@ let photoImageView: UIImageView = {
     private func setupViews() {
         self.backgroundColor = .clear
         self.selectionStyle = .none
-        
         self.addSubview(photoImageView)
         self.addSubview(nameLabel)
         

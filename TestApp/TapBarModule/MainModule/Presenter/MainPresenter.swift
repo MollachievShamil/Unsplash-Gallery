@@ -23,14 +23,12 @@ protocol MainPresenterProtocol: AnyObject{
 
 
 class MainPresenter: MainPresenterProtocol {
-
+    
     weak var view: MainViewProtocol?
     let router: RouterProtocol?
     var networkService: NetworkServiceProtocol?
     
     var photoModels: [PhotoModel] = []
-
-    
     
     required init(view: MainViewProtocol, router: RouterProtocol,networkService: NetworkServiceProtocol) {
         self.view = view
@@ -40,7 +38,6 @@ class MainPresenter: MainPresenterProtocol {
     
     func fetchSearchPhoto(name: String){
         networkService?.fetchSearchingModels(searchText: name, completion: { [weak self] model in
-         //   model?.results[0].downloads
             guard let model = model else { return }
             let photoModel = model.results
             self?.photoModels = photoModel
@@ -79,9 +76,9 @@ class MainPresenter: MainPresenterProtocol {
         }
         dispatchGroup.notify(queue: DispatchQueue.main) {
             self.view?.sucsess()
+        }
     }
-    }
-  
+    
     func goToDetailsModule(model: PhotoModel) {
         router?.showDetailsViewController(models: model)
     }

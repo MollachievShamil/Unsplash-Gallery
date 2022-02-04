@@ -13,11 +13,9 @@ class FavoriteViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setupViews()
         setupConstraints()
         setupDelegate()
-      //  presenter.getImages()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,30 +36,21 @@ class FavoriteViewController: UIViewController {
         view.addSubview(tableView)
     }
     
+    //MARK: - Delegates
     private func setupDelegate() {
         tableView.delegate = self
         tableView.dataSource = self
     }
 }
 
+//MARK: -  PresenterProtocol
 extension FavoriteViewController: FavoriteViewProtocol {
     func sucsess() {
         tableView.reloadData()
     }
-    
-    
 }
 
-extension FavoriteViewController {
-    func setupConstraints() {
-        NSLayoutConstraint.activate([
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-    }
-}
+//MARK: - TableViewDeleagte & DataSource
 
 extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
   
@@ -83,6 +72,17 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter.goToDetailsModule(ind: indexPath.row)
     }
-    
-    
+}
+
+
+//MARK: - Constraints
+extension FavoriteViewController {
+    func setupConstraints() {
+        NSLayoutConstraint.activate([
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
 }

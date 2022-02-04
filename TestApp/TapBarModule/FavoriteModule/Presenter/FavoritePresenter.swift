@@ -19,7 +19,6 @@ protocol FavoritePresenterProtocol: AnyObject{
     func getNumresOfCells()-> Int
     func makeImage(ind: Int) -> UIImage
     var images: [Data] {get set}
-    //func getImages()
 }
 
 
@@ -36,7 +35,6 @@ class FavoritePresenter: FavoritePresenterProtocol {
         self.router = router
         self.realm = realm
         self.networkService = networkService
-       // getImages()
     }
     
     func getNumresOfCells() -> Int {
@@ -46,9 +44,7 @@ class FavoritePresenter: FavoritePresenterProtocol {
     func fetchName(index: Int) -> String {
         return realm?.picturesInRealm![index].name ?? " no name"
     }
-    
-    
-   
+
     func makeImage(ind: Int) -> UIImage {
         let data = realm?.picturesInRealm![ind].pictureData
        
@@ -60,25 +56,8 @@ class FavoritePresenter: FavoritePresenterProtocol {
         }
         return UIImage(systemName: "trash")!
     }
-    
-//    func getImages() {
-//        let dispatchGroup = DispatchGroup()
-//        for i in realm!.picturesInRealm! {
-//            dispatchGroup.enter()
-//            networkService?.fetcRealmImage(from: i , response: { [weak self] data in
-//                if let data = data {
-//                    self?.images.append(data)
-//                    dispatchGroup.leave()
-//                }
-//            })
-//        }
-//        dispatchGroup.notify(queue: DispatchQueue.main) {
-//            self.view?.sucsess()
-//    }
-//}
-    
-    
-    func goToDetailsModule(ind: Int){
+  
+    func createModel(ind: Int) -> PhotoModel {
         let realm = realm?.picturesInRealm![ind]
         let url = realm?.URL
         let created = realm?.createdAt
@@ -88,7 +67,11 @@ class FavoritePresenter: FavoritePresenterProtocol {
         let location = realm?.location
         
         let model = PhotoModel(urls: Urls(raw: nil, full: nil, regular: nil, small: url, thumb: nil), created_at: created, downloads: downloads, user: User(name: user, location: location), picture: picture)
+        return model
+    }
 
+    func goToDetailsModule(ind: Int){
+      let model = createModel(ind: ind)
         router?.showDetailsViewController(models: model)
     }
 }

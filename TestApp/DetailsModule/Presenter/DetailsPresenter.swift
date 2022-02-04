@@ -43,10 +43,9 @@ class DetailsPresenter: DetailsPresenterProtocol {
         self.model = model
         self.networkService = networkService
         self.realm = realm
-       
         downloadPhoto()
     }
-    
+    //MARK: - Work With Realm
     func imageExistInRealm(model: RealmPictureModel) -> Bool{
         return realm!.imageExistInRealm(model: model)
     }
@@ -54,6 +53,7 @@ class DetailsPresenter: DetailsPresenterProtocol {
         realm?.saveDelete(picture: model)
     }
     
+    //MARK: - set lables
     func getURL() -> String {
         let item = model?.urls?.small
         if let item = item {
@@ -114,7 +114,6 @@ class DetailsPresenter: DetailsPresenterProtocol {
     //MARK: - Download photo
     func downloadPhoto(){
         guard let model = model else {return}
-
         networkService?.fetcImage(from: model, response: { [weak self] data in
             if let data = data {
                 let image = UIImage(data: data)
@@ -126,7 +125,6 @@ class DetailsPresenter: DetailsPresenterProtocol {
 }
 
 //MARK: - Date formatter
-
 extension DetailsPresenter {
     private func setDateFormat(date: String) -> String {
         let dateFormatter = DateFormatter()
