@@ -9,7 +9,6 @@ import UIKit
 
 class DetailsViewController: UIViewController {
 
-   // var realms = RealmService()
     
     var presenter: DetailsPresenterProtocol!
     
@@ -19,6 +18,34 @@ class DetailsViewController: UIViewController {
         setupViews()
         setConstraints()
         setupLabels()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setButton()
+    }
+    
+    func setButton() {
+        let model = makeModel()
+        if presenter.imageExistInRealm(model: model) {
+            print("exist")
+            button.backgroundColor = .red
+            button.setTitle("Delete", for: .normal)
+        } else {
+            print("dont exist")
+            button.backgroundColor = .orange
+            button.setTitle("Add", for: .normal)
+        }
+    }
+    
+    func setAlert(){
+        let model = makeModel()
+        if presenter.imageExistInRealm(model: model) {
+            alertOk(title: "Add", massege: "Photo sucsessfuly added")
+            
+        } else {
+            alertOk(title: "Delete", massege: "Photo sucsessfuly deleted")
+        }
     }
     
     func setupLabels(){
@@ -79,7 +106,7 @@ class DetailsViewController: UIViewController {
         return button
     }()
     
-    @objc func addToFavorite() {
+    func makeModel() -> RealmPictureModel {
         let model = RealmPictureModel()
         model.name = presenter.getNameLabel()
         model.pictureData = presenter.getData()
@@ -87,8 +114,15 @@ class DetailsViewController: UIViewController {
         model.downloads = presenter.model?.downloads ?? 0
         model.createdAt = presenter.model?.created_at ?? ""
         model.location = presenter.getLocationLabel()
-        presenter.deleteFromRealm(model: model)
-        
+        return model
+    }
+    
+    @objc func addToFavorite() {
+        let model = makeModel()
+        presenter.saveDeleteFromRealm(model: model)
+        setAlert()
+        setButton()
+    
     }
 
     private func setupViews() {

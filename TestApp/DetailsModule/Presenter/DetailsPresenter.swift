@@ -22,9 +22,9 @@ protocol DetailsPresenterProtocol: AnyObject{
     func getDownloadsLabel() -> String
     func downloadPhoto()
     func getData() -> Data
-    func saveToRealm(model: RealmPictureModel)
-    func deleteFromRealm(model: RealmPictureModel)
+    func saveDeleteFromRealm(model: RealmPictureModel)
     func getURL() -> String
+    func imageExistInRealm(model: RealmPictureModel) -> Bool
 }
 
 
@@ -46,12 +46,12 @@ class DetailsPresenter: DetailsPresenterProtocol {
        
         downloadPhoto()
     }
-    func deleteFromRealm(model: RealmPictureModel) {
-        realm?.saveDelete(picture: model)
-    }
     
-    func saveToRealm(model: RealmPictureModel) {
-      //  realm.save(picture: model)
+    func imageExistInRealm(model: RealmPictureModel) -> Bool{
+        return realm!.imageExistInRealm(model: model)
+    }
+    func saveDeleteFromRealm(model: RealmPictureModel) {
+        realm?.saveDelete(picture: model)
     }
     
     func getURL() -> String {

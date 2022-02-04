@@ -12,11 +12,12 @@ import RealmSwift
 protocol RealmServiceProtocol {
     func saveDelete(picture: RealmPictureModel)
     var picturesInRealm: Results<RealmPictureModel>? { get set }
+    func imageExistInRealm(model: RealmPictureModel) -> Bool
 }
 
 class RealmService: RealmServiceProtocol {
     
- //   static var shared = RealmService()
+
     init() {
         obtainUsers()
     }
@@ -25,7 +26,17 @@ class RealmService: RealmServiceProtocol {
   
     var picturesInRealm: Results<RealmPictureModel>?
     
- 
+    func imageExistInRealm(model: RealmPictureModel) -> Bool {
+        obtainUsers()
+        for i in 0...picturesInRealm!.count - 1{
+                    if picturesInRealm![i].name == model.name {
+                        return true
+                    }
+    }
+        return false
+    }
+    
+    
     func saveDelete(picture: RealmPictureModel) {
         obtainUsers()
         print(picture)

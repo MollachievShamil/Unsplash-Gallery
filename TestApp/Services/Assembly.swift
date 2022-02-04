@@ -49,15 +49,8 @@ class ModuleBuilder: BuilderProtocol {
     private func createNavigationViewController(controller: UIViewController, title: String, image: UIImage?) -> UINavigationController {
         let navigationController = UINavigationController(rootViewController: controller)
         controller.title = title
-       // controller.modalPresentationStyle = .fullScreen
         navigationController.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.black]
-        //navigationController.navigationBar.barTintColor = .green
-       // navigationController.navigationBar.isTranslucent = true
-       // navigationController.title = "fdfd"
-      //  navigationController.navigationBar.prefersLargeTitles = true
-      //  navigationController.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
         navigationController.tabBarItem = UITabBarItem(title: title, image: image, selectedImage: nil)
-       // navigationController.tabBarItem.badgeColor = .green
         return navigationController
     }
 }
