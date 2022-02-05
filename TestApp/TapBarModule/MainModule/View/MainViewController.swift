@@ -63,7 +63,6 @@ class MainViewController: UIViewController {
         if paginator {
             paginatorFalse()
             presenter.fetchPhotoModels()
-            print("refresh button tapped")
         }
     }
     
@@ -79,7 +78,6 @@ class MainViewController: UIViewController {
         paginator = true
         indicatorActivity.stopAnimating()
         indicatorActivity.hidesWhenStopped = true
-       
         navigationItem.rightBarButtonItem = createCustomButton(selector: #selector(refreshButtonTapped))
         searchController.searchBar.isHidden = false
     }
@@ -98,12 +96,10 @@ extension MainViewController: MainViewProtocol {
     func sucsess() {
         collectionView1.reloadData()
         paginatorTrue()
-        print("sucsessfully dowloaded")
     }
     
     func reloadCollectionView() {
         collectionView1.reloadData()
-        print("reloaddata to  make cells empty")
     }
 }
 
@@ -144,7 +140,6 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
 //MARK: -  Search Bar Delegate
 extension MainViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print(searchText)
         
         let text = searchText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
         searchingText = text!
@@ -177,11 +172,8 @@ extension MainViewController: UIScrollViewDelegate {
                 if searchingText != "" {
                     pageCounter += 1
                     presenter.addMorePhotoForInfinityScrollWithSearching(name: searchingText, page: pageCounter)
-                    print("searching \(searchingText)")
-                    print(searchingText)
                 } else {
                     presenter.addMorePhotoForInfinityScroll()
-                    print("random searching")
                 }
             }
         }

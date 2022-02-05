@@ -17,7 +17,11 @@ class FavoriteViewController: UIViewController {
         setupConstraints()
         setupDelegate()
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
  
     private let tableView: UITableView = {
         let tableView = UITableView()

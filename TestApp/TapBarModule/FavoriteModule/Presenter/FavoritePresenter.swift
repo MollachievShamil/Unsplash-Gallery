@@ -38,6 +38,7 @@ class FavoritePresenter: FavoritePresenterProtocol {
         self.networkService = networkService
     }
     
+    
     //MARK: - Set labels
     func getNumresOfCells() -> Int {
         return realm?.picturesInRealm?.count ?? 0
