@@ -9,15 +9,15 @@ import Foundation
 import UIKit
 
 protocol NetworkServiceProtocol {
-    func fetchSearchingModels(searchText: String, completion: @escaping(SearchModel?) -> Void)
     func fetchModels(completion: @escaping([PhotoModel]?) -> Void)
     func fetcImage(from pictureModel: PhotoModel, response: @escaping(Data?)-> Void)
+    func fetchSearchingModelsOnPage(searchText: String, page: Int, completion: @escaping(SearchModel?) -> Void)
 }
 
 class NetworkService: NetworkServiceProtocol {
     
-    func fetchSearchingModels(searchText: String, completion: @escaping(SearchModel?) -> Void){
-        let urlString = "https://api.unsplash.com//search/photos?page=1&per_page=20&query=\(searchText)&client_id=9_x587DuHw9DllgT4tNfNTY3V8LrB6Ny92D5LiKAjmI#"
+    func fetchSearchingModelsOnPage(searchText: String, page: Int, completion: @escaping(SearchModel?) -> Void){
+        let urlString = "https://api.unsplash.com//search/photos?page=\(page)&per_page=20&query=\(searchText)&client_id=9_x587DuHw9DllgT4tNfNTY3V8LrB6Ny92D5LiKAjmI#"
         fetchData(urlString: urlString, responce: completion)
     }
     

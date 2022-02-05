@@ -49,7 +49,6 @@ let photoImageView: UIImageView = {
         self.selectionStyle = .none
         self.addSubview(photoImageView)
         self.addSubview(nameLabel)
-        
     }
     
 }

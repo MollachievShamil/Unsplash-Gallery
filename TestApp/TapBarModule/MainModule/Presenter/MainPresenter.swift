@@ -21,6 +21,7 @@ protocol MainPresenterProtocol: AnyObject{
     var photoModels: [PhotoModel] {get set}
     func fetchSearchingPhotoModels(name: String)
     func addMorePhotoForInfinityScroll()
+    func addMorePhotoForInfinityScrollWithSearching(name: String, page: Int)
 }
 
 
@@ -29,7 +30,6 @@ class MainPresenter: MainPresenterProtocol {
     weak var view: MainViewProtocol?
     let router: RouterProtocol?
     var networkService: NetworkServiceProtocol?
-    
     var photoModels: [PhotoModel] = []
     
     required init(view: MainViewProtocol, router: RouterProtocol,networkService: NetworkServiceProtocol) {
@@ -38,19 +38,21 @@ class MainPresenter: MainPresenterProtocol {
         self.networkService = networkService
     }
     
-    
+    //MARK: - Searching Photos
     func fetchSearchingPhotoModels(name: String){
-        networkService?.fetchSearchingModels(searchText: name, completion: { [weak self] model in
+        photoModels = []
+        view?.reloadCollectionView()
+        networkService?.fetchSearchingModelsOnPage(searchText: name, page: 1, completion: { [weak self] model in
             guard let model = model else { return }
             let photoModel = model.results
-            self?.photoModels = photoModel
+            self?.photoModels.append(contentsOf: photoModel)
             self?.getImages()
         })
     }
-    // new function
-    func fetchSearchingPhotoModelsForInfinityScroll(name: String, page: Int){
-        
-        networkService?.fetchSearchingModels(searchText: name, completion: { [weak self] model in
+ 
+
+    func addMorePhotoForInfinityScrollWithSearching(name: String, page: Int){
+        networkService?.fetchSearchingModelsOnPage(searchText: name, page: page, completion: { [weak self] model in
             guard let model = model else { return }
             let photoModel = model.results
             self?.photoModels.append(contentsOf: photoModel)
@@ -58,7 +60,7 @@ class MainPresenter: MainPresenterProtocol {
         })
     }
     
-    
+    //MARK: - Random Photos
     func fetchPhotoModels() {
         photoModels = []
         view?.reloadCollectionView()
@@ -76,6 +78,8 @@ class MainPresenter: MainPresenterProtocol {
             self?.getImages()
         }
     }
+    
+    //MARK: - Fetching Photo data and Transform them in Images
     
     func makeImage(img: Data?) -> UIImage {
         guard let data = img else {
@@ -103,7 +107,7 @@ class MainPresenter: MainPresenterProtocol {
         }
     }
     
-    
+    //MARK: - Navigation
     func goToDetailsModule(model: PhotoModel) {
         router?.showDetailsViewController(models: model)
     }

@@ -12,6 +12,8 @@ class MainViewController: UIViewController {
     var presenter: MainPresenterProtocol!
     var timer: Timer?
     var paginator = true
+    var searchingText = ""
+    var pageCounter = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,34 +21,26 @@ class MainViewController: UIViewController {
         setConstraints()
         setupSearchController()
         presenter.fetchPhotoModels()
-        setupActivityIndicator()
-        navBarSettings()
     }
     
-    var indicatorActivity = UIActivityIndicatorView()
-   
-    func setupActivityIndicator() {
-        indicatorActivity.style = .large
+    let indicatorActivity : UIActivityIndicatorView = {
+        let indicatorActivity = UIActivityIndicatorView()
+        indicatorActivity.style = .medium
         indicatorActivity.color = .black
-        collectionView1.addSubview(indicatorActivity)
-        indicatorActivity.center = view.center
-        indicatorActivity.startAnimating()
-    }
+        indicatorActivity.translatesAutoresizingMaskIntoConstraints = false
+        indicatorActivity.backgroundColor = UIColor.black.withAlphaComponent(0.2)
+        indicatorActivity.isUserInteractionEnabled = false
+        return indicatorActivity
+    }()
+    
     
     let collectionView1: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView1 = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView1.register(MainViewControllerCell.self, forCellWithReuseIdentifier: "cell")
         collectionView1.translatesAutoresizingMaskIntoConstraints = false
-        //collectionView1.refreshControl = UIRefreshControl()
-      //  collectionView1.refreshControl?.addTarget(self, action: #selector(refreshing), for: .allEvents)
         return collectionView1
     }()
-    
-//    @objc func refreshing() {
-//        presenter.getPhotoInformation()
-//    }
-//    
     
     func createCustomButton(selector: Selector) -> UIBarButtonItem {
         let button = UIButton(type: .system)
@@ -55,11 +49,6 @@ class MainViewController: UIViewController {
         button.addTarget(self, action: selector, for: .touchUpInside)
         let menuBarItem = UIBarButtonItem(customView: button)
         return menuBarItem
-    }
-    
-    func navBarSettings(){
-        let refreshButton = createCustomButton(selector: #selector(refreshButtonTapped))
-        navigationItem.rightBarButtonItem = refreshButton
     }
     
     private let searchController = UISearchController(searchResultsController: nil)
@@ -71,15 +60,28 @@ class MainViewController: UIViewController {
     }
     
     @objc func refreshButtonTapped(){
-        DispatchQueue.main.async {
-            if self.paginator {
-                self.presenter.fetchPhotoModels()
-                self.indicatorActivity.startAnimating()
-                print("refresh")
-            } else {
-                    self.refreshButtonTapped()
-            }
+        if paginator {
+            paginatorFalse()
+            presenter.fetchPhotoModels()
+            print("refresh button tapped")
         }
+    }
+    
+    //MARK: - Paginator
+    func paginatorFalse(){
+        paginator = false
+        indicatorActivity.startAnimating()
+        navigationItem.rightBarButtonItem = nil
+        searchController.searchBar.isHidden = true
+    }
+    
+    func paginatorTrue(){
+        paginator = true
+        indicatorActivity.stopAnimating()
+        indicatorActivity.hidesWhenStopped = true
+       
+        navigationItem.rightBarButtonItem = createCustomButton(selector: #selector(refreshButtonTapped))
+        searchController.searchBar.isHidden = false
     }
     
     
@@ -95,16 +97,13 @@ class MainViewController: UIViewController {
 extension MainViewController: MainViewProtocol {
     func sucsess() {
         collectionView1.reloadData()
-        indicatorActivity.stopAnimating()
-        indicatorActivity.hidesWhenStopped = true
-        paginator = true
-//        DispatchQueue.main.async {
-//            self.collectionView1.refreshControl?.endRefreshing()
-//        }
+        paginatorTrue()
+        print("sucsessfully dowloaded")
     }
     
     func reloadCollectionView() {
         collectionView1.reloadData()
+        print("reloaddata to  make cells empty")
     }
 }
 
@@ -148,28 +147,21 @@ extension MainViewController: UISearchBarDelegate {
         print(searchText)
         
         let text = searchText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+        searchingText = text!
+        pageCounter = 1
         
-        if text != "" {
+        if text != "" && paginator {
+            
             timer?.invalidate()
-            timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { [weak self] _ in
+            timer = Timer.scheduledTimer(withTimeInterval: 2 , repeats: false, block: { [weak self] _ in
+                self?.paginatorFalse()
                 self?.presenter.fetchSearchingPhotoModels(name: text!)
-                self?.indicatorActivity.startAnimating()
             })
         }
     }
-}
-
-//MARK: - Constraints
-extension MainViewController {
-    func setConstraints() {
-        view.addSubview(collectionView1)
-        NSLayoutConstraint.activate([
-            collectionView1.topAnchor.constraint(equalTo: view.topAnchor),
-            collectionView1.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView1.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView1.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-        
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchingText = ""
     }
 }
 
@@ -180,10 +172,42 @@ extension MainViewController: UIScrollViewDelegate {
         let position = scrollView.contentOffset.y
         if position > (collectionView1.contentSize.height-100-scrollView.frame.size.height) {
             if paginator {
-                paginator = false
-            presenter.addMorePhotoForInfinityScroll()
-
+                
+                paginatorFalse()
+                if searchingText != "" {
+                    pageCounter += 1
+                    presenter.addMorePhotoForInfinityScrollWithSearching(name: searchingText, page: pageCounter)
+                    print("searching \(searchingText)")
+                    print(searchingText)
+                } else {
+                    presenter.addMorePhotoForInfinityScroll()
+                    print("random searching")
+                }
+            }
         }
-      }
+    }
+}
+
+
+//MARK: - Constraints
+extension MainViewController {
+    func setConstraints() {
+        view.addSubview(collectionView1)
+        collectionView1.addSubview(indicatorActivity)
+        
+        NSLayoutConstraint.activate([
+            collectionView1.topAnchor.constraint(equalTo: view.topAnchor),
+            collectionView1.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView1.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView1.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            indicatorActivity.topAnchor.constraint(equalTo: view.topAnchor),
+            indicatorActivity.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            indicatorActivity.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            indicatorActivity.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
     }
 }
