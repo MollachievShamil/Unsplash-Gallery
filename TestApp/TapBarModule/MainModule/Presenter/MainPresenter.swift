@@ -10,15 +10,17 @@ import UIKit
 
 protocol MainViewProtocol: AnyObject {
     func sucsess()
+    func reloadCollectionView()
 }
 
 protocol MainPresenterProtocol: AnyObject{
     init(view: MainViewProtocol, router: RouterProtocol, networkService: NetworkServiceProtocol)
-    func getPhotoInformation()
+    func fetchPhotoModels()
     func goToDetailsModule(model: PhotoModel)
     func makeImage(img: Data?) -> UIImage
     var photoModels: [PhotoModel] {get set}
-    func fetchSearchPhoto(name: String)
+    func fetchSearchingPhotoModels(name: String)
+    func addMorePhotoForInfinityScroll()
 }
 
 
@@ -36,7 +38,8 @@ class MainPresenter: MainPresenterProtocol {
         self.networkService = networkService
     }
     
-    func fetchSearchPhoto(name: String){
+    
+    func fetchSearchingPhotoModels(name: String){
         networkService?.fetchSearchingModels(searchText: name, completion: { [weak self] model in
             guard let model = model else { return }
             let photoModel = model.results
@@ -44,11 +47,32 @@ class MainPresenter: MainPresenterProtocol {
             self?.getImages()
         })
     }
+    // new function
+    func fetchSearchingPhotoModelsForInfinityScroll(name: String, page: Int){
+        
+        networkService?.fetchSearchingModels(searchText: name, completion: { [weak self] model in
+            guard let model = model else { return }
+            let photoModel = model.results
+            self?.photoModels.append(contentsOf: photoModel)
+            self?.getImages()
+        })
+    }
     
-    func getPhotoInformation() {
+    
+    func fetchPhotoModels() {
+        photoModels = []
+        view?.reloadCollectionView()
         networkService?.fetchModels { [weak self] model in
             guard let model = model else { return }
             self?.photoModels = model
+            self?.getImages()
+        }
+    }
+    
+    func addMorePhotoForInfinityScroll() {
+        networkService?.fetchModels { [weak self] model in
+            guard let model = model else { return }
+            self?.photoModels.append(contentsOf: model)
             self?.getImages()
         }
     }
@@ -78,6 +102,7 @@ class MainPresenter: MainPresenterProtocol {
             self.view?.sucsess()
         }
     }
+    
     
     func goToDetailsModule(model: PhotoModel) {
         router?.showDetailsViewController(models: model)

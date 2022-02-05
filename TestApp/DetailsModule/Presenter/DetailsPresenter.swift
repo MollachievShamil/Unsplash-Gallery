@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 protocol DetailsViewProtocol: AnyObject {
-
     func setUpPhoto(image: UIImage)
 }
 
@@ -29,7 +28,6 @@ protocol DetailsPresenterProtocol: AnyObject{
 
 
 class DetailsPresenter: DetailsPresenterProtocol {
-   
   
     weak var view: DetailsViewProtocol?
     let router: RouterProtocol?
@@ -45,10 +43,12 @@ class DetailsPresenter: DetailsPresenterProtocol {
         self.realm = realm
         downloadPhoto()
     }
+    
     //MARK: - Work With Realm
     func imageExistInRealm(model: RealmPictureModel) -> Bool{
         return realm!.imageExistInRealm(model: model)
     }
+    
     func saveDeleteFromRealm(model: RealmPictureModel) {
         realm?.saveDelete(picture: model)
     }

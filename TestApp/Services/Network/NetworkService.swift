@@ -9,10 +9,9 @@ import Foundation
 import UIKit
 
 protocol NetworkServiceProtocol {
+    func fetchSearchingModels(searchText: String, completion: @escaping(SearchModel?) -> Void)
     func fetchModels(completion: @escaping([PhotoModel]?) -> Void)
     func fetcImage(from pictureModel: PhotoModel, response: @escaping(Data?)-> Void)
-    func fetchSearchingModels(searchText: String, completion: @escaping(SearchModel?) -> Void)
-    func fetcRealmImage(from pictureModel: RealmPictureModel, response: @escaping(Data?)-> Void)
 }
 
 class NetworkService: NetworkServiceProtocol {
@@ -23,12 +22,12 @@ class NetworkService: NetworkServiceProtocol {
     }
     
     func fetchModels(completion: @escaping([PhotoModel]?) -> Void){
-        let urlString = "https://api.unsplash.com/photos/random/?count=20&client_id=9_x587DuHw9DllgT4tNfNTY3V8LrB6Ny92D5LiKAjmI#"
+        let urlString = "https://api.unsplash.com/photos/random/?count=10&client_id=9_x587DuHw9DllgT4tNfNTY3V8LrB6Ny92D5LiKAjmI#"
         fetchData(urlString: urlString, responce: completion)
     }
     
     func fetcImage(from pictureModel: PhotoModel, response: @escaping(Data?)-> Void){
-
+        
         if let urlString = pictureModel.urls?.small {
             requestData(urlString: urlString) { result in
                 switch result {
@@ -41,25 +40,8 @@ class NetworkService: NetworkServiceProtocol {
             }
         }
     }
-   
-    func fetcRealmImage(from pictureModel: RealmPictureModel, response: @escaping(Data?)-> Void){
-
-         let urlString = pictureModel.URL
-            requestData(urlString: urlString) { result in
-                switch result {
-                case .success(let data):
-                    response(data)
-                case .failure(let error):
-                    response(nil)
-                    print("No photos" + error.localizedDescription)
-                }
-            }
-        
-    }
     
-    
-    
-    func fetchData<T: Decodable> (urlString: String, responce: @escaping (T?) -> Void) {
+    private  func fetchData<T: Decodable> (urlString: String, responce: @escaping (T?) -> Void) {
         
         requestData(urlString: urlString) { result in
             switch result {
@@ -74,8 +56,8 @@ class NetworkService: NetworkServiceProtocol {
         }
     }
     
-   
-    func decodeJSON<T: Decodable>(type: T.Type, from data: Data?) ->T? {
+    
+    private func decodeJSON<T: Decodable>(type: T.Type, from data: Data?) ->T? {
         let decoder = JSONDecoder()
         guard let data = data else { return nil }
         do {
@@ -88,7 +70,7 @@ class NetworkService: NetworkServiceProtocol {
     }
     
     
-    func requestData(urlString: String, complition: @escaping (Result<Data, Error>) -> Void) {
+    private func requestData(urlString: String, complition: @escaping (Result<Data, Error>) -> Void) {
         
         guard let url = URL(string: urlString) else { return }
         

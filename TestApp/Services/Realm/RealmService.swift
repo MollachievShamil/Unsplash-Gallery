@@ -17,7 +17,7 @@ protocol RealmServiceProtocol {
 }
 
 class RealmService: RealmServiceProtocol {
-
+    
     init() {
         obtainUsers()
     }
@@ -27,16 +27,16 @@ class RealmService: RealmServiceProtocol {
     
     func imageExistInRealm(model: RealmPictureModel) -> Bool {
         obtainUsers()
-        if picturesInRealm?.count != 0 {
-        for i in 0...picturesInRealm!.count - 1{
-            if picturesInRealm![i].name == model.name {
-                return true
+       
+        if picturesInRealm?.count == 0 { return false }
+        
+            for i in 0...picturesInRealm!.count - 1{
+                if picturesInRealm![i].name == model.name {
+                    return true
+                }
             }
-        }
-        return false
-        } else {
             return false
-        }
+        
     }
     
     
@@ -50,14 +50,13 @@ class RealmService: RealmServiceProtocol {
                 }
             }
             save(picture: picture)
-            
         } else {
             save(picture: picture)
         }
     }
     
+    
     func save(picture: RealmPictureModel) {
-        
         do {
             try realm.write {
                 realm.add(picture)
@@ -77,7 +76,7 @@ class RealmService: RealmServiceProtocol {
             print("Error deleting context \(error)")
         }
     }
- 
+    
     
     func obtainUsers() {
         let realm = try! Realm()

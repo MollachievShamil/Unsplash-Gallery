@@ -11,13 +11,14 @@ class MainViewController: UIViewController {
     
     var presenter: MainPresenterProtocol!
     var timer: Timer?
+    var paginator = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setDelegate()
         setConstraints()
         setupSearchController()
-        presenter.getPhotoInformation()
+        presenter.fetchPhotoModels()
         setupActivityIndicator()
         navBarSettings()
     }
@@ -28,7 +29,7 @@ class MainViewController: UIViewController {
         indicatorActivity.style = .large
         indicatorActivity.color = .black
         collectionView1.addSubview(indicatorActivity)
-        indicatorActivity.frame = view.frame
+        indicatorActivity.center = view.center
         indicatorActivity.startAnimating()
     }
     
@@ -37,9 +38,15 @@ class MainViewController: UIViewController {
         let collectionView1 = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView1.register(MainViewControllerCell.self, forCellWithReuseIdentifier: "cell")
         collectionView1.translatesAutoresizingMaskIntoConstraints = false
+        //collectionView1.refreshControl = UIRefreshControl()
+      //  collectionView1.refreshControl?.addTarget(self, action: #selector(refreshing), for: .allEvents)
         return collectionView1
     }()
     
+//    @objc func refreshing() {
+//        presenter.getPhotoInformation()
+//    }
+//    
     
     func createCustomButton(selector: Selector) -> UIBarButtonItem {
         let button = UIButton(type: .system)
@@ -51,13 +58,8 @@ class MainViewController: UIViewController {
     }
     
     func navBarSettings(){
-        let usetInfiButton = createCustomButton(selector: #selector(refreshButtonTapped))
-        navigationItem.rightBarButtonItem = usetInfiButton
-    }
-    
-    @objc func refreshButtonTapped(){
-        presenter.getPhotoInformation()
-        indicatorActivity.startAnimating()
+        let refreshButton = createCustomButton(selector: #selector(refreshButtonTapped))
+        navigationItem.rightBarButtonItem = refreshButton
     }
     
     private let searchController = UISearchController(searchResultsController: nil)
@@ -67,6 +69,19 @@ class MainViewController: UIViewController {
         searchController.obscuresBackgroundDuringPresentation = false
         navigationItem.searchController = searchController
     }
+    
+    @objc func refreshButtonTapped(){
+        DispatchQueue.main.async {
+            if self.paginator {
+                self.presenter.fetchPhotoModels()
+                self.indicatorActivity.startAnimating()
+                print("refresh")
+            } else {
+                    self.refreshButtonTapped()
+            }
+        }
+    }
+    
     
     //MARK: - Delegates
     func setDelegate() {
@@ -82,20 +97,28 @@ extension MainViewController: MainViewProtocol {
         collectionView1.reloadData()
         indicatorActivity.stopAnimating()
         indicatorActivity.hidesWhenStopped = true
+        paginator = true
+//        DispatchQueue.main.async {
+//            self.collectionView1.refreshControl?.endRefreshing()
+//        }
+    }
+    
+    func reloadCollectionView() {
+        collectionView1.reloadData()
     }
 }
 
 //MARK: - Collection View Delegates
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return presenter.photoModels.count
+    }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! MainViewControllerCell
         cell.imageView.image = presenter.makeImage(img: presenter.photoModels[indexPath.row].picture)
         return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return presenter.photoModels.count
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -129,7 +152,7 @@ extension MainViewController: UISearchBarDelegate {
         if text != "" {
             timer?.invalidate()
             timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { [weak self] _ in
-                self?.presenter.fetchSearchPhoto(name: text!)
+                self?.presenter.fetchSearchingPhotoModels(name: text!)
                 self?.indicatorActivity.startAnimating()
             })
         }
@@ -146,5 +169,21 @@ extension MainViewController {
             collectionView1.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView1.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+        
+    }
+}
+
+//MARK: - InfinityScroll
+
+extension MainViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let position = scrollView.contentOffset.y
+        if position > (collectionView1.contentSize.height-100-scrollView.frame.size.height) {
+            if paginator {
+                paginator = false
+            presenter.addMorePhotoForInfinityScroll()
+
+        }
+      }
     }
 }

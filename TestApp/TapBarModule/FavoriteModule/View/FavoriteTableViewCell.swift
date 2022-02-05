@@ -15,6 +15,7 @@ let photoImageView: UIImageView = {
    let photoImageView = UIImageView()
     photoImageView.backgroundColor = .red
     photoImageView.clipsToBounds = true
+    photoImageView.contentMode = .scaleAspectFill
     photoImageView.translatesAutoresizingMaskIntoConstraints = false
     return photoImageView
 }()
