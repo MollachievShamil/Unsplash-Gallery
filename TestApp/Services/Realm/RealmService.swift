@@ -27,16 +27,13 @@ class RealmService: RealmServiceProtocol {
     
     func imageExistInRealm(model: RealmPictureModel) -> Bool {
         obtainUsers()
-       
         if picturesInRealm?.count == 0 { return false }
-        
             for i in 0...picturesInRealm!.count - 1{
-                if picturesInRealm![i].name == model.name {
+                if picturesInRealm![i].pictureData == model.pictureData {
                     return true
                 }
             }
             return false
-        
     }
     
     
@@ -44,7 +41,7 @@ class RealmService: RealmServiceProtocol {
         obtainUsers()
         if picturesInRealm?.count != 0 {
             for i in 0...picturesInRealm!.count - 1{
-                if picturesInRealm![i].name == picture.name {
+                if picturesInRealm![i].pictureData == picture.pictureData {
                     delete(model: picture )
                     return
                 }
@@ -70,7 +67,7 @@ class RealmService: RealmServiceProtocol {
         obtainUsers()
         do {
             try realm.write {
-                realm.delete(realm.objects(RealmPictureModel.self).filter("name=%@",model.name))
+                realm.delete(realm.objects(RealmPictureModel.self).filter("pictureData=%@",model.pictureData))
             }
         } catch {
             print("Error deleting context \(error)")
