@@ -10,7 +10,7 @@
 		1184FCDA26C93A1E4923D501 /* Pods_TestApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C87084534250570DF097CA66 /* Pods_TestApp.framework */; };
 		B30569C227ABB78200030E81 /* PhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30569C127ABB78200030E81 /* PhotoModel.swift */; };
 		B30569C427ABDDA600030E81 /* FavoriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30569C327ABDDA600030E81 /* FavoriteTableViewCell.swift */; };
-		B30569C627ABE48C00030E81 /* UIStackViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30569C527ABE48C00030E81 /* UIStackViewExtension.swift */; };
+		B30569C627ABE48C00030E81 /* UIStackView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30569C527ABE48C00030E81 /* UIStackView + Extension.swift */; };
 		B30569C827ABE86B00030E81 /* UIViewController + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30569C727ABE86B00030E81 /* UIViewController + Extension.swift */; };
 		B3550D1627AAE018001389CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3550D1527AAE018001389CA /* AppDelegate.swift */; };
 		B3550D1827AAE018001389CA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3550D1727AAE018001389CA /* SceneDelegate.swift */; };
@@ -34,7 +34,7 @@
 		B0BEDB07CD8B8647055E29D8 /* Pods-TestApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestApp.release.xcconfig"; path = "Target Support Files/Pods-TestApp/Pods-TestApp.release.xcconfig"; sourceTree = "<group>"; };
 		B30569C127ABB78200030E81 /* PhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModel.swift; sourceTree = "<group>"; };
 		B30569C327ABDDA600030E81 /* FavoriteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewCell.swift; sourceTree = "<group>"; };
-		B30569C527ABE48C00030E81 /* UIStackViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackViewExtension.swift; sourceTree = "<group>"; };
+		B30569C527ABE48C00030E81 /* UIStackView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView + Extension.swift"; sourceTree = "<group>"; };
 		B30569C727ABE86B00030E81 /* UIViewController + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + Extension.swift"; sourceTree = "<group>"; };
 		B3550D1227AAE018001389CA /* TestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3550D1527AAE018001389CA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -83,7 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				B30569C727ABE86B00030E81 /* UIViewController + Extension.swift */,
-				B30569C527ABE48C00030E81 /* UIStackViewExtension.swift */,
+				B30569C527ABE48C00030E81 /* UIStackView + Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -369,7 +369,7 @@
 			files = (
 				B3E45B6B27ACFE55005448C3 /* RealmPictureModel.swift in Sources */,
 				B3550D2A27AAE118001389CA /* Assembly.swift in Sources */,
-				B30569C627ABE48C00030E81 /* UIStackViewExtension.swift in Sources */,
+				B30569C627ABE48C00030E81 /* UIStackView + Extension.swift in Sources */,
 				B3550D3027AAE18D001389CA /* MainPresenter.swift in Sources */,
 				B3550D2C27AAE13C001389CA /* Router.swift in Sources */,
 				B3550D1627AAE018001389CA /* AppDelegate.swift in Sources */,
