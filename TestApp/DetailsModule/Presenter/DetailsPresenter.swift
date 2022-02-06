@@ -110,19 +110,17 @@ class DetailsPresenter: DetailsPresenterProtocol {
             return ""
         }
     }
-   
-    //MARK: - Download photo
-    func downloadPhoto(){
-        guard let model = model else {return}
-        networkService?.fetcImage(from: model, response: { [weak self] data in
-            if let data = data {
-                let image = UIImage(data: data)
-                self?.view?.setUpPhoto(image: image!)
-            }
-        })
-    }
     
+    func downloadPhoto(){
+        let data = model?.picture
+        if let data = data {
+            view?.setUpPhoto(image: UIImage(data: data)!)
+        } else {
+            view?.setUpPhoto(image: UIImage(systemName: "trash")!)
+        }
+    }
 }
+
 
 //MARK: - Date formatter
 extension DetailsPresenter {

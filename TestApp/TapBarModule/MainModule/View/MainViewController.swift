@@ -33,13 +33,14 @@ class MainViewController: UIViewController {
         return indicatorActivity
     }()
     
+ 
     
-    let collectionView1: UICollectionView = {
+    let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        let collectionView1 = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView1.register(MainViewControllerCell.self, forCellWithReuseIdentifier: "cell")
-        collectionView1.translatesAutoresizingMaskIntoConstraints = false
-        return collectionView1
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.register(MainViewControllerCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
     }()
     
     func createCustomButton(selector: Selector) -> UIBarButtonItem {
@@ -85,8 +86,8 @@ class MainViewController: UIViewController {
     
     //MARK: - Delegates
     func setDelegate() {
-        collectionView1.dataSource = self
-        collectionView1.delegate = self
+        collectionView.dataSource = self
+        collectionView.delegate = self
         searchController.searchBar.delegate = self
     }
 }
@@ -94,12 +95,12 @@ class MainViewController: UIViewController {
 //MARK: - Presenter Delegate
 extension MainViewController: MainViewProtocol {
     func sucsess() {
-        collectionView1.reloadData()
+        collectionView.reloadData()
         paginatorTrue()
     }
     
     func reloadCollectionView() {
-        collectionView1.reloadData()
+        collectionView.reloadData()
     }
 }
 
@@ -165,7 +166,7 @@ extension MainViewController: UISearchBarDelegate {
 extension MainViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let position = scrollView.contentOffset.y
-        if position > (collectionView1.contentSize.height-100-scrollView.frame.size.height) {
+        if position > (collectionView.contentSize.height-100-scrollView.frame.size.height) {
             if paginator {
                 
                 paginatorFalse()
@@ -184,14 +185,13 @@ extension MainViewController: UIScrollViewDelegate {
 //MARK: - Constraints
 extension MainViewController {
     func setConstraints() {
-        view.addSubview(collectionView1)
-        collectionView1.addSubview(indicatorActivity)
-        
+        view.addSubview(collectionView)
+        collectionView.addSubview(indicatorActivity)
         NSLayoutConstraint.activate([
-            collectionView1.topAnchor.constraint(equalTo: view.topAnchor),
-            collectionView1.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView1.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView1.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
         NSLayoutConstraint.activate([
