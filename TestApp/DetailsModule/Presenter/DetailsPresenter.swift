@@ -116,7 +116,7 @@ class DetailsPresenter: DetailsPresenterProtocol {
         if let data = data {
             view?.setUpPhoto(image: UIImage(data: data)!)
         } else {
-            view?.setUpPhoto(image: UIImage(systemName: "trash")!)
+            view?.setUpPhoto(image: UIImage(systemName: "questionmark")!)
         }
     }
 }

@@ -83,12 +83,12 @@ class MainPresenter: MainPresenterProtocol {
     
     func makeImage(img: Data?) -> UIImage {
         guard let data = img else {
-            return UIImage(systemName: "trash")!
+            return UIImage(systemName: "questionmark")!
         }
         if let image = UIImage(data: data) {
             return image
         }
-        return UIImage(systemName: "trash")!
+        return UIImage(systemName: "questionmark")!
     }
     
     func getImages() {
