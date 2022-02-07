@@ -13,7 +13,6 @@ class DetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .green
         setupViews()
         setConstraints()
         setupLabels()
@@ -26,7 +25,6 @@ class DetailsViewController: UIViewController {
 
     private let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .green
         imageView.layer.cornerRadius = 20
         imageView.layer.masksToBounds = true
         imageView.contentMode = .scaleAspectFill
@@ -37,21 +35,18 @@ class DetailsViewController: UIViewController {
     private let autorNameLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.text = "Author Name"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private let dateOfCreationLabel: UILabel = {
         let label = UILabel()
-        label.text = "Date Of Creation"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private let locationLabel: UILabel = {
         let label = UILabel()
-        label.text = "Location"
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -59,7 +54,6 @@ class DetailsViewController: UIViewController {
     
     private let downloadsLabel: UILabel = {
         let label = UILabel()
-        label.text = "10 tracks"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -68,8 +62,6 @@ class DetailsViewController: UIViewController {
     
     private let button: UIButton = {
         let button = UIButton()
-        button.setTitle("Add to favorite", for: .normal)
-        button.backgroundColor = .red
         button.addTarget(self, action: #selector(addToFavorite), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 10

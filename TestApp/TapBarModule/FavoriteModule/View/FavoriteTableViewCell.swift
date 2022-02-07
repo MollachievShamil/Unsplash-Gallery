@@ -22,7 +22,6 @@ let photoImageView: UIImageView = {
 
  let nameLabel: UILabel = {
    let label = UILabel()
-    label.text = "Name album name"
     label.font = UIFont.systemFont(ofSize: 20)
     label.translatesAutoresizingMaskIntoConstraints = false
     return label
