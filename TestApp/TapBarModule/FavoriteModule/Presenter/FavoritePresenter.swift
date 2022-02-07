@@ -63,20 +63,19 @@ class FavoritePresenter: FavoritePresenterProtocol {
         return model
     }
     
-    //MARK: - Fetching Photo data and Transform them in Images
+    //MARK: - Transform data from model in Images
+  
     
     func makeImage(ind: Int) -> UIImage {
         let data = realm?.picturesInRealm![ind].pictureData
-       
-        guard let data = data else {
+        if let data = data {
+            return UIImage(data: data)!
+        } else {
             return UIImage(systemName: "trash")!
         }
-        if let image = UIImage(data: data) {
-            return image
-        }
-        return UIImage(systemName: "trash")!
     }
-
+    
+    
     //MARK: - Deleting
     
     func deleteWithSwipe(ind: Int) {

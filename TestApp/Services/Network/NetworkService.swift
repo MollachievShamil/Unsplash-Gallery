@@ -42,7 +42,6 @@ class NetworkService: NetworkServiceProtocol {
     }
     
     private  func fetchData<T: Decodable> (urlString: String, responce: @escaping (T?) -> Void) {
-        
         requestData(urlString: urlString) { result in
             switch result {
             case .success(let data):

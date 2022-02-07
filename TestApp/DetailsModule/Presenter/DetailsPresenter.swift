@@ -57,7 +57,6 @@ class DetailsPresenter: DetailsPresenterProtocol {
     func getURL() -> String {
         let item = model?.urls?.small
         if let item = item {
-
             return item
         } else {
             return " .......... "
@@ -75,7 +74,6 @@ class DetailsPresenter: DetailsPresenterProtocol {
     func getNameLabel() -> String {
         let item = model?.user?.name
         if let item = item {
-
             return item
         } else {
             return " .......... "
@@ -110,6 +108,8 @@ class DetailsPresenter: DetailsPresenterProtocol {
             return ""
         }
     }
+    
+    //MARK: - Transform data from model in Images
     
     func downloadPhoto(){
         let data = model?.picture

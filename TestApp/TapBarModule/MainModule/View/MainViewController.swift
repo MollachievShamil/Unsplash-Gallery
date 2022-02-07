@@ -33,7 +33,6 @@ class MainViewController: UIViewController {
         return indicatorActivity
     }()
     
- 
     
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -168,8 +167,8 @@ extension MainViewController: UIScrollViewDelegate {
         let position = scrollView.contentOffset.y
         if position > (collectionView.contentSize.height-100-scrollView.frame.size.height) {
             if paginator {
-                
                 paginatorFalse()
+                
                 if searchingText != "" {
                     pageCounter += 1
                     presenter.addMorePhotoForInfinityScrollWithSearching(name: searchingText, page: pageCounter)
@@ -185,8 +184,10 @@ extension MainViewController: UIScrollViewDelegate {
 //MARK: - Constraints
 extension MainViewController {
     func setConstraints() {
+        
         view.addSubview(collectionView)
         collectionView.addSubview(indicatorActivity)
+        
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
