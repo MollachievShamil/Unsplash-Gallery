@@ -71,7 +71,7 @@ class FavoritePresenter: FavoritePresenterProtocol {
         if let data = data {
             return UIImage(data: data)!
         } else {
-            return UIImage(systemName: "trash")!
+            return UIImage(systemName: "questionmark")!
         }
     }
     
